@@ -2,36 +2,25 @@ package fr.isen.attia.androidrestaurant
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import android.widget.Toast
+import fr.isen.attia.androidrestaurant.databinding.ActivityHomeBinding
 
-class HomeActivity : AppCompatActivity(), View.OnClickListener {
-    lateinit var menuBtnStarters: Button
-    lateinit var menuBtnMainCourses: Button
-    lateinit var menuBtnDesserts: Button
+class HomeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.`activity_home`)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        menuBtnStarters = findViewById(R.id.menu_btn_starters)
-        menuBtnMainCourses = findViewById(R.id.menu_btn_main_courses)
-        menuBtnDesserts = findViewById(R.id.menu_btn_desserts)
-
-        menuBtnStarters.setOnClickListener(this)
-        menuBtnMainCourses.setOnClickListener(this)
-        menuBtnDesserts.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View){
-        when(v.id){
-            R.id.menu_btn_starters -> Toast.makeText(applicationContext, "Starters button clicked !", Toast.LENGTH_SHORT)
-            R.id.menu_btn_main_courses -> Toast.makeText(applicationContext, "Main Courses button clicked !", Toast.LENGTH_SHORT)
-            R.id.menu_btn_desserts -> Toast.makeText(applicationContext, "Desserts button clicked !", Toast.LENGTH_SHORT)
-            else -> {
-                Toast.makeText(applicationContext, "Clicked an unhandled thingy", Toast.LENGTH_SHORT)
-            }
-        }?.show()
+        binding.menuBtnStarters.setOnClickListener{
+            Toast.makeText(applicationContext, "Starters button clicked !", Toast.LENGTH_SHORT).show()
+        }
+        binding.menuBtnMainCourses.setOnClickListener{
+            Toast.makeText(applicationContext, "Main Courses button clicked !", Toast.LENGTH_SHORT).show()
+        }
+        binding.menuBtnDesserts.setOnClickListener{
+            Toast.makeText(applicationContext, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
+        }
     }
 }
