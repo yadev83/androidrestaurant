@@ -24,5 +24,23 @@ class CategoryActivity : AppCompatActivity() {
 
         TYPE = intent.getSerializableExtra(CATEGORY_NAME) as ItemType
         binding.categoryActivityPlacehoolder.text = TYPE.toString()
+
+        when(TYPE){
+            ItemType.STARTER -> buildStartersPage()
+            ItemType.MAIN -> buildMainCoursesPage()
+            ItemType.DESSERT -> buildDessertsPage()
+        }
+    }
+
+    private fun buildStartersPage(){
+        title = getString(R.string.menu_btn_starters)
+    }
+
+    private fun buildMainCoursesPage(){
+        title = getString(R.string.menu_btn_main_courses)
+    }
+
+    private fun buildDessertsPage(){
+        title = getString(R.string.menu_btn_desserts)
     }
 }
