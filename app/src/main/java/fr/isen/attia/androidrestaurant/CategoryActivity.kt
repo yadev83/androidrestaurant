@@ -32,7 +32,7 @@ class CategoryActivity : AppCompatActivity() {
             ItemType.DESSERT -> buildDessertsPage()
         }
 
-        foods = FoodModel.createFoodList(20)
+        foods = FoodModel.gatherFoodFromApi(this)
         val adapter = FoodsAdapter(foods)
         binding.rvFood.adapter = adapter
         binding.rvFood.layoutManager = LinearLayoutManager(this)
