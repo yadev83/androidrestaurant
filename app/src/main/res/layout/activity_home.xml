@@ -6,13 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginBottom="220dp"
+        android:contentDescription="@string/drawable_banner_desc"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/banner" />
+
+    <Button
+        android:id="@+id/menu_btn_starters"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="296dp"
+        android:text="@string/menu_btn_starters"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/menu_btn_main_courses"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_btn_main_courses"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_btn_starters" />
+
+    <Button
+        android:id="@+id/menu_btn_desserts"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_btn_desserts"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_btn_main_courses" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
