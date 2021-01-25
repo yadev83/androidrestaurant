@@ -28,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
         binding.menuBtnDesserts.setOnClickListener{
             //Toast used for debugging only
             //Toast.makeText(this, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
+            showDessertsMenu()
         }
     }
 
@@ -38,6 +39,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun showStartersMenu(){
         val intent = Intent(this, StartersActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun showDessertsMenu(){
+        val intent = Intent(this, DessertsActivity::class.java)
         startActivity(intent)
     }
 }
