@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">androidrestaurant</string>
+    <string name="app_name">Droid Restaurant</string>
     <string name="menu_btn_starters">Entrées</string>
     <string name="menu_btn_main_courses">Plats</string>
     <string name="menu_btn_desserts">Desserts</string>
