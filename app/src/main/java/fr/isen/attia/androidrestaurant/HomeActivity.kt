@@ -3,13 +3,16 @@ package fr.isen.attia.androidrestaurant
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import fr.isen.attia.androidrestaurant.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private val TAG = "MainMenu"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i(TAG, "HomeActivity has been created")
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -26,6 +29,11 @@ class HomeActivity : AppCompatActivity() {
             //Toast used for debugging only
             //Toast.makeText(this, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(TAG, "HomeActivity has been destroyed")
     }
 
     private fun showStartersMenu(){
