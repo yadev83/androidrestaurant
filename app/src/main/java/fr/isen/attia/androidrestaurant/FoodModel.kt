@@ -7,7 +7,7 @@ class FoodModel(val id: Int, val name: String) {
         fun createFoodList(numItems: Int) : ArrayList<FoodModel> {
             val foods = ArrayList<FoodModel>()
             for (i in 1..numItems){
-                foods.add(FoodModel(++lastItemId, "Food " + ++lastItemId))
+                foods.add(FoodModel(++lastItemId, "Food $lastItemId"))
             }
             return foods
         }

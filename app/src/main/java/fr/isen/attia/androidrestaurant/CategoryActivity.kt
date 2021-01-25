@@ -2,11 +2,13 @@ package fr.isen.attia.androidrestaurant
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.attia.androidrestaurant.HomeActivity.Companion.CATEGORY_NAME
 import fr.isen.attia.androidrestaurant.databinding.ActivityCategoryBinding
 
 class CategoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoryBinding
+    private lateinit var foods: ArrayList<FoodModel>
     private val TAG = "Category"
 
     enum class ItemType{
@@ -23,13 +25,17 @@ class CategoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         TYPE = intent.getSerializableExtra(CATEGORY_NAME) as ItemType
-        binding.categoryActivityPlacehoolder.text = TYPE.toString()
 
         when(TYPE){
             ItemType.STARTER -> buildStartersPage()
             ItemType.MAIN -> buildMainCoursesPage()
             ItemType.DESSERT -> buildDessertsPage()
         }
+
+        foods = FoodModel.createFoodList(20)
+        val adapter = FoodsAdapter(foods)
+        binding.rvFood.adapter = adapter
+        binding.rvFood.layoutManager = LinearLayoutManager(this)
     }
 
     private fun buildStartersPage(){
