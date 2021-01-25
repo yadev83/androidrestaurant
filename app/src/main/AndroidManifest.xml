@@ -11,6 +11,7 @@
         android:theme="@style/Theme.Androidrestaurant">
         <activity android:name=".DessertsActivity"></activity>
         <activity android:name=".MainCoursesActivity"></activity>
+        <activity android:name=".DessertsActivity"></activity>
         <activity android:name=".StartersActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>

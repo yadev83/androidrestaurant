@@ -52,4 +52,9 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this, MainCoursesActivity::class.java)
         startActivity(intent)
     }
+
+    private fun showDessertsMenu(){
+        val intent = Intent(this, DessertsActivity::class.java)
+        startActivity(intent)
+    }
 }
