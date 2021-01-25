@@ -1,7 +1,9 @@
 package fr.isen.attia.androidrestaurant
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import fr.isen.attia.androidrestaurant.databinding.ActivityHomeBinding
 
@@ -14,13 +16,22 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.menuBtnStarters.setOnClickListener{
-            Toast.makeText(this, "Starters button clicked !", Toast.LENGTH_SHORT).show()
+            //Toast used for debugging only
+            //Toast.makeText(this, "Starters button clicked !", Toast.LENGTH_SHORT).show()
+            showStartersMenu()
         }
         binding.menuBtnMainCourses.setOnClickListener{
-            Toast.makeText(this, "Main Courses button clicked !", Toast.LENGTH_SHORT).show()
+            //Toast used for debugging only
+            //Toast.makeText(this, "Main Courses button clicked !", Toast.LENGTH_SHORT).show()
         }
         binding.menuBtnDesserts.setOnClickListener{
-            Toast.makeText(this, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
+            //Toast used for debugging only
+            //Toast.makeText(this, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showStartersMenu(){
+        val intent = Intent(this, StartersActivity::class.java)
+        startActivity(intent)
     }
 }
