@@ -14,13 +14,13 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.menuBtnStarters.setOnClickListener{
-            Toast.makeText(applicationContext, "Starters button clicked !", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Starters button clicked !", Toast.LENGTH_SHORT).show()
         }
         binding.menuBtnMainCourses.setOnClickListener{
-            Toast.makeText(applicationContext, "Main Courses button clicked !", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Main Courses button clicked !", Toast.LENGTH_SHORT).show()
         }
         binding.menuBtnDesserts.setOnClickListener{
-            Toast.makeText(applicationContext, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
         }
     }
 }
