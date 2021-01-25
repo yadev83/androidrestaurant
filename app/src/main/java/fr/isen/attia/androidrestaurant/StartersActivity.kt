@@ -2,7 +2,6 @@ package fr.isen.attia.androidrestaurant
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import fr.isen.attia.androidrestaurant.databinding.ActivityHomeBinding
 import fr.isen.attia.androidrestaurant.databinding.ActivityStartersBinding
 
 class StartersActivity : AppCompatActivity() {

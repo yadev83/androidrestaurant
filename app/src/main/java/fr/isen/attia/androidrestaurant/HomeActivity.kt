@@ -3,8 +3,6 @@ package fr.isen.attia.androidrestaurant
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import fr.isen.attia.androidrestaurant.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
