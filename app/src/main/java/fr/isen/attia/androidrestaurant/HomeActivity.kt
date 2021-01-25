@@ -24,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
         binding.menuBtnMainCourses.setOnClickListener{
             //Toast used for debugging only
             //Toast.makeText(this, "Main Courses button clicked !", Toast.LENGTH_SHORT).show()
+            showMainCoursesMenu()
         }
         binding.menuBtnDesserts.setOnClickListener{
             //Toast used for debugging only
@@ -41,9 +42,14 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this, StartersActivity::class.java)
         startActivity(intent)
     }
-
+    
     private fun showDessertsMenu(){
         val intent = Intent(this, DessertsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun showMainCoursesMenu(){
+        val intent = Intent(this, MainCoursesActivity::class.java)
         startActivity(intent)
     }
 }
