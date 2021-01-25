@@ -10,6 +10,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val TAG = "MainMenu"
 
+    companion object{
+        const val CATEGORY_NAME = "CATEGORY"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "HomeActivity has been created")
@@ -19,17 +23,17 @@ class HomeActivity : AppCompatActivity() {
         binding.menuBtnStarters.setOnClickListener{
             //Toast used for debugging only
             //Toast.makeText(this, "Starters button clicked !", Toast.LENGTH_SHORT).show()
-            goToCategory("starters")
+            goToCategory(ItemType.STARTER)
         }
         binding.menuBtnMainCourses.setOnClickListener{
             //Toast used for debugging only
             //Toast.makeText(this, "Main Courses button clicked !", Toast.LENGTH_SHORT).show()
-            goToCategory("main-courses")
+            goToCategory(ItemType.MAIN)
         }
         binding.menuBtnDesserts.setOnClickListener{
             //Toast used for debugging only
             //Toast.makeText(this, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
-            goToCategory("desserts")
+            goToCategory(ItemType.DESSERT)
         }
     }
 
@@ -38,9 +42,11 @@ class HomeActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun goToCategory(key: String){
-        Log.i(TAG, "Opening new activity with $key identifier")
-        val intent = Intent(this, CategoryActivity::class.java)
+    private fun goToCategory(type: ItemType){
+        Log.i(TAG, "Opening new activity with $type identifier")
+        val intent = Intent(this, CategoryActivity::class.java).apply{
+            putExtra(CATEGORY_NAME, type)
+        }
         startActivity(intent)
     }
 }

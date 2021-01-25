@@ -7,10 +7,10 @@
     tools:context=".CategoryActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/category_activity_placehoolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="category_text_placeholder"
+        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
