@@ -3,4 +3,5 @@
     <string name="menu_btn_starters">Entrées</string>
     <string name="menu_btn_main_courses">Plats</string>
     <string name="menu_btn_desserts">Desserts</string>
+    <string name="drawable_banner_desc">Bannière du restaurant</string>
 </resources>
