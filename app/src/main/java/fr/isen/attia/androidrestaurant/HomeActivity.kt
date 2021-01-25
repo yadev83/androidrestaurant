@@ -23,17 +23,17 @@ class HomeActivity : AppCompatActivity() {
         binding.menuBtnStarters.setOnClickListener{
             //Toast used for debugging only
             //Toast.makeText(this, "Starters button clicked !", Toast.LENGTH_SHORT).show()
-            goToCategory(ItemType.STARTER)
+            goToCategory(CategoryActivity.ItemType.STARTER)
         }
         binding.menuBtnMainCourses.setOnClickListener{
             //Toast used for debugging only
             //Toast.makeText(this, "Main Courses button clicked !", Toast.LENGTH_SHORT).show()
-            goToCategory(ItemType.MAIN)
+            goToCategory(CategoryActivity.ItemType.MAIN)
         }
         binding.menuBtnDesserts.setOnClickListener{
             //Toast used for debugging only
             //Toast.makeText(this, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
-            goToCategory(ItemType.DESSERT)
+            goToCategory(CategoryActivity.ItemType.DESSERT)
         }
     }
 
@@ -42,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun goToCategory(type: ItemType){
+    private fun goToCategory(type: CategoryActivity.ItemType){
         Log.i(TAG, "Opening new activity with $type identifier")
         val intent = Intent(this, CategoryActivity::class.java).apply{
             putExtra(CATEGORY_NAME, type)

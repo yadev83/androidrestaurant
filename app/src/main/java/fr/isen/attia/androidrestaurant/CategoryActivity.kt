@@ -5,13 +5,13 @@ import android.os.Bundle
 import fr.isen.attia.androidrestaurant.HomeActivity.Companion.CATEGORY_NAME
 import fr.isen.attia.androidrestaurant.databinding.ActivityCategoryBinding
 
-enum class ItemType{
-    STARTER, MAIN, DESSERT
-}
-
 class CategoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoryBinding
     private val TAG = "Category"
+
+    enum class ItemType{
+        STARTER, MAIN, DESSERT
+    }
 
     companion object{
         lateinit var TYPE: ItemType
