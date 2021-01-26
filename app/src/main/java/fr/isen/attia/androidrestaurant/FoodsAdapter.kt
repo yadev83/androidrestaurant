@@ -18,6 +18,7 @@ class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView){
         val nameTextView: TextView = itemView.findViewById<TextView>(R.id.food_name)
         val buyButton: Button = itemView.findViewById<Button>(R.id.buy_button)
+        val priceTextView: TextView = itemView.findViewById<TextView>(R.id.food_price)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,8 +36,9 @@ class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<
     override fun onBindViewHolder(viewHolder: FoodsAdapter.ViewHolder, position: Int) {
         val food: FoodModel = mFoods.get(position)
 
-        val textView = viewHolder.nameTextView
-        textView.text = food.name
+        viewHolder.nameTextView.text = food.name
+        viewHolder.priceTextView.text = food.price.toString() + " €"
+
         val button = viewHolder.buyButton
         button.text = context.getString(R.string.btn_food_details)
         button.isEnabled = true

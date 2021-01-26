@@ -3,7 +3,6 @@ package fr.isen.attia.androidrestaurant
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import fr.isen.attia.androidrestaurant.databinding.ActivityCategoryBinding
 import fr.isen.attia.androidrestaurant.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
