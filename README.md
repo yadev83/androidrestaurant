@@ -25,8 +25,8 @@ To get started, simply download the .apk file to install it on your mobile devic
 * [Android Studio](https://developer.android.com/studio) - An IDE made for Android app development based on IntelliJ.  
 
 ## Versions
-**Last Stable Version :** [1.0.0-d](https://github.com/yadev83/androidrestaurant/tags/v1.0.0-d)  
-**Last Version :** [1.0.0-d](https://github.com/yadev83/androidrestaurant/tags/v1.0.0-d)  
+**Last Stable Version :** [1.0.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.0.0-d)  
+**Last Version :** [1.0.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.0.0-d)  
 
 ### Version Log  
 **1.0.0-d** : First stable version containing a main page and 3 categories with a list of dishes for each category. Dishes are grabbed on a distant API asynchronously.  
