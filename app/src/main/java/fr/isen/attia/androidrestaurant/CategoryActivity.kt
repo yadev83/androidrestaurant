@@ -41,19 +41,22 @@ class CategoryActivity : AppCompatActivity() {
             ItemType.MAIN -> buildMainCoursesPage()
             ItemType.DESSERT -> buildDessertsPage()
         }
-
+        binding.categoryTitleText.text = title
         FoodModel.gatherFoodFromApi(this, title as String)
     }
 
     private fun buildStartersPage(){
         title = getString(R.string.menu_btn_starters)
+        binding.banner.setImageResource(R.drawable.starters)
     }
 
     private fun buildMainCoursesPage(){
         title = getString(R.string.menu_btn_main_courses)
+        binding.banner.setImageResource(R.drawable.main_courses)
     }
 
     private fun buildDessertsPage(){
         title = getString(R.string.menu_btn_desserts)
+        binding.banner.setImageResource(R.drawable.desserts)
     }
 }
