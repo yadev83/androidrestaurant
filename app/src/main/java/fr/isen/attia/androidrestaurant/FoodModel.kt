@@ -7,6 +7,8 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 
 class FoodModel(val id: Int, val name: String) {
@@ -30,12 +32,15 @@ class FoodModel(val id: Int, val name: String) {
             params["id_shop"] = "1"
             val jsonObject = JSONObject(params as Map<*, *>)
 
+            var foodData: FoodData? = null
+
             val request = JsonObjectRequest(Request.Method.POST, url,jsonObject,
                 Response.Listener{
-                    response -> Log.i("FOOD", response.toString())
+                    response -> Log.d("FOOD", Gson().fromJson<FoodData>(response.toString(), FoodData::class.java).toString())
                 },
                 Response.ErrorListener { Log.i("FOOD", "API Request error") })
             queue.add(request)
+            Log.d("FOOD", foodData.toString())
 
             return foods
         }
