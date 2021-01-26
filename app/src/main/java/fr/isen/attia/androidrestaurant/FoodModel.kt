@@ -2,6 +2,8 @@ package fr.isen.attia.androidrestaurant
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -11,16 +13,17 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 
-class FoodModel(val id: Int, val name: String) {
+class FoodModel(val id: Int, val name: String){
     companion object{
         private var lastItemId = 0
-        var foods: ArrayList<FoodModel> = ArrayList<FoodModel>()
+        var currentFoods: MutableLiveData<ArrayList<FoodModel>> = MutableLiveData()
 
         fun createFoodList(numItems: Int){
-            foods = ArrayList<FoodModel>()
+            var foods = ArrayList<FoodModel>()
             for (i in 1..numItems){
                 foods.add(FoodModel(++lastItemId, "Food $lastItemId"))
             }
+            currentFoods.value = foods
         }
 
         fun gatherFoodFromApi(context: Context){
@@ -38,7 +41,7 @@ class FoodModel(val id: Int, val name: String) {
                         var foodData: FoodData = Gson().fromJson<FoodData>(response.toString(), FoodData::class.java)
                         //DEBUG LOG
                         Log.d("FOOD", foodData.toString())
-                        foods = ArrayList<FoodModel>()
+                        var foods = ArrayList<FoodModel>()
                         foodData.data.forEach{
                             it.items.forEach {
                                 it.id?.let { it1 -> it.name_fr?.let { it2 -> FoodModel(it1, it2) } }?.let { it2 ->
@@ -46,6 +49,7 @@ class FoodModel(val id: Int, val name: String) {
                                         it2
                                     )
                                     Log.d("FOOD", it2.name)
+                                    currentFoods.value = foods
                                 }
                             }
                         }
