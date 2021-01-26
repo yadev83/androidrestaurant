@@ -26,12 +26,13 @@ To get started, simply download the .apk file to install it on your mobile devic
 
 ## Versions
 **Last Stable Version :** [1.0.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.0.0-d)  
-**Last Version :** [1.0.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.0.0-d)  
+**Last Version :** [1.1.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.1.0-d)  
+
+Full Versions list : [Click here to see](https://github.com/yadev83/androidrestaurant/tags)  
 
 ### Version Log  
-**1.0.0-d** : First stable version containing a main page and 3 categories with a list of dishes for each category. Dishes are grabbed on a distant API asynchronously.  
-
-Versions list : [Click here to see](https://github.com/yadev83/androidrestaurant/tags)
+**[1.1.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.1.0-d)**: Adds some design stuff to the app. Dishes details access will be refactored soon though. This is why it isn't a major stable version.  
+**[1.0.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.0.0-d)** : First stable version containing a main page and 3 categories with a list of dishes for each category. Dishes are grabbed on a distant API asynchronously.  
 
 ## Authors
 
