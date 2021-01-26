@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<FoodsAdapter.ViewHolder>() {
     private lateinit var context: Context
@@ -19,6 +21,7 @@ class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<
         val nameTextView: TextView = itemView.findViewById<TextView>(R.id.food_name)
         val buyButton: Button = itemView.findViewById<Button>(R.id.buy_button)
         val priceTextView: TextView = itemView.findViewById<TextView>(R.id.food_price)
+        val dishImage: ImageView = itemView.findViewById<ImageView>(R.id.food_image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,6 +41,13 @@ class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<
 
         viewHolder.nameTextView.text = food.name
         viewHolder.priceTextView.text = food.price.toString() + " €"
+
+        val img = viewHolder.dishImage
+        Log.d("IMAGE", food.images?.first() as String)
+        val imgUrl = food.images?.first()
+        if(!imgUrl.isNullOrEmpty()){
+            Picasso.with(context).load(imgUrl).into(img)
+        }
 
         val button = viewHolder.buyButton
         button.text = context.getString(R.string.btn_food_details)
