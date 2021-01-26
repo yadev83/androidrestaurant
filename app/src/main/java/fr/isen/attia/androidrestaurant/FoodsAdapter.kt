@@ -19,9 +19,9 @@ class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView){
         val nameTextView: TextView = itemView.findViewById<TextView>(R.id.food_name)
-        val buyButton: Button = itemView.findViewById<Button>(R.id.buy_button)
         val priceTextView: TextView = itemView.findViewById<TextView>(R.id.food_price)
         val dishImage: ImageView = itemView.findViewById<ImageView>(R.id.food_image)
+        val layout = itemView.rootView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,10 +49,7 @@ class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<
             Picasso.with(context).load(imgUrl).into(img)
         }
 
-        val button = viewHolder.buyButton
-        button.text = context.getString(R.string.btn_food_details)
-        button.isEnabled = true
-        button.setOnClickListener{
+        viewHolder.layout.setOnClickListener{
             Log.d("BUTTON", "Clicked food : "+ food.id)
             val intent = Intent(HomeActivity.context, DetailActivity::class.java).apply{
                 putExtra("DISH_ID", food.id)
