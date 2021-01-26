@@ -1,8 +1,10 @@
 package fr.isen.attia.androidrestaurant
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.attia.androidrestaurant.HomeActivity.Companion.CATEGORY_NAME
@@ -32,7 +34,6 @@ class CategoryActivity : AppCompatActivity() {
             binding.rvFood.adapter = FoodsAdapter(it)
             binding.rvFood.layoutManager = LinearLayoutManager(this)
         }
-
         FoodModel.currentFoods.observe(this, foodObserver)
 
         when(TYPE){

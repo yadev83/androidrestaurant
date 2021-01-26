@@ -1,11 +1,15 @@
 package fr.isen.attia.androidrestaurant
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<FoodsAdapter.ViewHolder>() {
@@ -36,5 +40,13 @@ class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<
         val button = viewHolder.buyButton
         button.text = context.getString(R.string.btn_food_details)
         button.isEnabled = true
+        button.setOnClickListener{
+            Log.d("BUTTON", "Clicked food : "+ food.id)
+            val intent = Intent(HomeActivity.context, DetailActivity::class.java).apply{
+                putExtra("DISH_ID", food.id)
+                putExtra("TITLE", food.name)
+            }
+            startActivity(HomeActivity.context, intent, null)
+        }
     }
 }

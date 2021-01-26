@@ -1,5 +1,6 @@
 package fr.isen.attia.androidrestaurant
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,10 +13,13 @@ class HomeActivity : AppCompatActivity() {
 
     companion object{
         const val CATEGORY_NAME = "CATEGORY"
+
+        lateinit var context: Context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        context = this
         Log.i(TAG, "HomeActivity has been created")
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
