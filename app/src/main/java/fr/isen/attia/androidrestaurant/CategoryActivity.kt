@@ -32,7 +32,8 @@ class CategoryActivity : AppCompatActivity() {
             ItemType.DESSERT -> buildDessertsPage()
         }
 
-        foods = FoodModel.gatherFoodFromApi(this)
+        FoodModel.gatherFoodFromApi(this)
+        foods = FoodModel.foods
         val adapter = FoodsAdapter(foods)
         binding.rvFood.adapter = adapter
         binding.rvFood.layoutManager = LinearLayoutManager(this)

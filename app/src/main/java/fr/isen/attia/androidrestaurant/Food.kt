@@ -19,10 +19,11 @@ data class Food (
         var categ_name_fr: String? = null,
         var categ_name_en: String? = null,
         var images: Array<String?>,
-        var ingredients: Array<Ingredients>
+        var ingredients: Array<FoodIngredient>,
+        var prices: Array<FoodPrice>
 ){}
 
-data class Ingredients (
+data class FoodIngredient (
         var id: Int? = null,
         var id_shop: Int? = null,
         var name_fr: String? = null,
@@ -32,7 +33,7 @@ data class Ingredients (
         var id_pizza: Int? = null
 ){}
 
-data class Price(
+data class FoodPrice(
         var id: Int? = null,
         var id_pizza: Int? = null,
         var id_size: Int? = null,
