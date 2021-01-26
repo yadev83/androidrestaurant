@@ -26,7 +26,7 @@ class FoodModel(val id: Int, val name: String){
             currentFoods.value = foods
         }
 
-        fun gatherFoodFromApi(context: Context){
+        fun gatherFoodFromApi(context: Context, title: String){
             val queue = Volley.newRequestQueue(context)
 
             val url = "http://test.api.catering.bluecodegames.com/menu"
@@ -40,16 +40,16 @@ class FoodModel(val id: Int, val name: String){
                     run {
                         var foodData: FoodData = Gson().fromJson<FoodData>(response.toString(), FoodData::class.java)
                         //DEBUG LOG
-                        Log.d("FOOD", foodData.toString())
+                        //Log.d("FOOD", foodData.toString())
                         var foods = ArrayList<FoodModel>()
                         foodData.data.forEach{
                             it.items.forEach {
                                 it.id?.let { it1 -> it.name_fr?.let { it2 -> FoodModel(it1, it2) } }?.let { it2 ->
-                                    foods.add(
-                                        it2
-                                    )
-                                    Log.d("FOOD", it2.name)
-                                    currentFoods.value = foods
+                                    if(it.categ_name_fr == title){
+                                        foods.add(it2)
+                                        currentFoods.value = foods
+                                    }
+
                                 }
                             }
                         }

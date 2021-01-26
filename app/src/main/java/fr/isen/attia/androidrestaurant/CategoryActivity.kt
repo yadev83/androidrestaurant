@@ -41,7 +41,7 @@ class CategoryActivity : AppCompatActivity() {
             ItemType.DESSERT -> buildDessertsPage()
         }
 
-        FoodModel.gatherFoodFromApi(this)
+        FoodModel.gatherFoodFromApi(this, title as String)
     }
 
     private fun buildStartersPage(){
