@@ -53,7 +53,6 @@ class FoodModel(val id: Int, val name: String){
                                 }
                             }
                         }
-
                     }
                 },
                 Response.ErrorListener { Log.i("FOOD", "API Request error") })
