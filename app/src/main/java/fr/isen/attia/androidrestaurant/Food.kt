@@ -31,7 +31,11 @@ data class FoodIngredient (
         var create_date: String? = null,
         var update_date: String? = null,
         var id_pizza: Int? = null
-){}
+){
+        override fun toString(): String {
+                return name_fr as String
+        }
+}
 
 data class FoodPrice(
         var id: Int? = null,

@@ -13,7 +13,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 
-class FoodModel(val id: Int, val name: String){
+class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val ingredients: Array<FoodIngredient>?, val price: Float?){
     companion object{
         private var lastItemId = 0
         var currentFoods: MutableLiveData<ArrayList<FoodModel>> = MutableLiveData()
@@ -21,9 +21,18 @@ class FoodModel(val id: Int, val name: String){
         fun createFoodList(numItems: Int){
             var foods = ArrayList<FoodModel>()
             for (i in 1..numItems){
-                foods.add(FoodModel(++lastItemId, "Food $lastItemId"))
+                foods.add(FoodModel(++lastItemId, "Food $lastItemId", null, null, null))
             }
             currentFoods.value = foods
+        }
+
+        fun getFoodById(dishId: Int) : FoodModel?{
+            currentFoods.value?.forEach{ food ->
+                if(dishId == food.id){
+                    return food
+                }
+            }
+            return null
         }
 
         fun gatherFoodFromApi(context: Context, title: String){
@@ -42,14 +51,17 @@ class FoodModel(val id: Int, val name: String){
                         //DEBUG LOG
                         //Log.d("FOOD", foodData.toString())
                         var foods = ArrayList<FoodModel>()
-                        foodData.data.forEach{
-                            it.items.forEach {
-                                it.id?.let { it1 -> it.name_fr?.let { it2 -> FoodModel(it1, it2) } }?.let { it2 ->
-                                    if(it.categ_name_fr == title){
-                                        foods.add(it2)
+                        foodData.data.forEach{category ->
+                            category.items.forEach {food ->
+                                food.id?.let { foodId ->
+                                    food.name_fr?.let { foodName ->
+                                        FoodModel(foodId, foodName, food.images, food.ingredients, food.prices.first().price)
+                                    }
+                                }?.let { foodModel ->
+                                    if(food.categ_name_fr == title){
+                                        foods.add(foodModel)
                                         currentFoods.value = foods
                                     }
-
                                 }
                             }
                         }
