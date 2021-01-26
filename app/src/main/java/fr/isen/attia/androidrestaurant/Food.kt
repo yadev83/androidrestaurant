@@ -37,7 +37,7 @@ data class FoodPrice(
         var id: Int? = null,
         var id_pizza: Int? = null,
         var id_size: Int? = null,
-        var price: Int? = null,
+        var price: Float? = null,
         var create_date: String? = null,
         var update_date: String? = null,
         var size: String? = null

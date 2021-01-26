@@ -14,7 +14,7 @@ import org.json.JSONObject
 class FoodModel(val id: Int, val name: String) {
     companion object{
         private var lastItemId = 0
-        lateinit var foods: ArrayList<FoodModel>
+        var foods: ArrayList<FoodModel> = ArrayList<FoodModel>()
 
         fun createFoodList(numItems: Int){
             foods = ArrayList<FoodModel>()
@@ -38,8 +38,16 @@ class FoodModel(val id: Int, val name: String) {
                         var foodData: FoodData = Gson().fromJson<FoodData>(response.toString(), FoodData::class.java)
                         //DEBUG LOG
                         Log.d("FOOD", foodData.toString())
-                        foodData.data.forEach{ _ ->
-                            
+                        foods = ArrayList<FoodModel>()
+                        foodData.data.forEach{
+                            it.items.forEach {
+                                it.id?.let { it1 -> it.name_fr?.let { it2 -> FoodModel(it1, it2) } }?.let { it2 ->
+                                    foods.add(
+                                        it2
+                                    )
+                                    Log.d("FOOD", it2.name)
+                                }
+                            }
                         }
 
                     }
