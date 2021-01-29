@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintSet
 import com.squareup.picasso.Picasso
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
@@ -45,6 +46,11 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
+        var constraintSet = ConstraintSet()
+        constraintSet.clone(binding.root)
+        constraintSet.connect(binding.dishName.id, ConstraintSet.TOP, carousel.id, ConstraintSet.BOTTOM)
+        constraintSet.applyTo(binding.root);
+
         if(noImages) {
             binding.root.removeView(carousel)
         }else{
@@ -63,7 +69,12 @@ class DetailActivity : AppCompatActivity() {
         binding.root.removeView(carousel)
 
         val carouselPager = binding.carouselViewPager
+        carouselPager.adapter = CarouselAdapter(this, food.images as List<String>)
 
+        var constraintSet = ConstraintSet()
+        constraintSet.clone(binding.root)
+        constraintSet.connect(binding.dishName.id, ConstraintSet.TOP, carouselPager.id, ConstraintSet.BOTTOM)
+        constraintSet.applyTo(binding.root);
     }
 
     private fun populateTextViews(){

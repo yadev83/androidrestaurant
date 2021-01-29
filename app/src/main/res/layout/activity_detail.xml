@@ -9,7 +9,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/carouselViewPager"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="333dp" />
 
@@ -94,7 +94,8 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carouselView" />
+        app:layout_constraintTop_toBottomOf="@id/carouselView"
+        tools:layout_constraintTop_toBottomOf="@id/carouselViewPager" />
 
     <TextView
         android:id="@+id/ingredients_title"
