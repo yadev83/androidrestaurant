@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/banner"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/drawable_banner_desc"
         android:cropToPadding="false"
