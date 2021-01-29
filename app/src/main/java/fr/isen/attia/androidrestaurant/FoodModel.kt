@@ -14,6 +14,8 @@ import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 
 class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val ingredients: Array<FoodIngredient>?, val price: Float?){
+    var ready: Boolean = false
+
     companion object{
         private var lastItemId = 0
         var currentFoods: MutableLiveData<ArrayList<FoodModel>> = MutableLiveData()
@@ -35,8 +37,10 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
             return null
         }
 
-        fun gatherFoodFromApi(context: Context, title: String){
+        fun gatherFoodFromApi(context: CategoryActivity, title: String){
             val queue = Volley.newRequestQueue(context)
+
+            val activity = context
 
             val url = "http://test.api.catering.bluecodegames.com/menu"
             val params = HashMap<String,String>()
@@ -51,6 +55,7 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
                         //DEBUG LOG
                         //Log.d("FOOD", foodData.toString())
                         var foods = ArrayList<FoodModel>()
+                        currentFoods.value = foods
                         foodData.data.forEach{category ->
                             category.items.forEach {food ->
                                 food.id?.let { foodId ->
@@ -61,6 +66,7 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
                                     if(food.categ_name_fr == title){
                                         foods.add(foodModel)
                                         currentFoods.value = foods
+                                        activity.disableLoadingAnimation()
                                     }
                                 }
                             }
@@ -68,7 +74,6 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
                     }
                 },
                 Response.ErrorListener { Log.i("FOOD", "API Request error") })
-
             queue.add(request)
         }
     }
