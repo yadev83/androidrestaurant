@@ -14,7 +14,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var food: SerializedFood
 
     private var id: Int? = 0
-    private lateinit var carousel: CarouselView
+
+    private var orderQuantity = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +25,17 @@ class DetailActivity : AppCompatActivity() {
         food = intent.getSerializableExtra("DISH") as SerializedFood
         Log.d("SERIALIZED_FOOD", food.toString())
 
-        populateCarousel()
+        //populateCarousel()
+        populateCarouselViewPager()
         populateTextViews()
+        populateQuantityLayout()
     }
 
     private fun populateCarousel(){
-        carousel = binding.carouselView
+        val carouselPager = binding.carouselViewPager
+        binding.root.removeView(carouselPager)
+
+        val carousel = binding.carouselView
         carousel.pageCount = food.images?.size ?: 0
 
         var noImages: Boolean = true
@@ -52,6 +58,14 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun populateCarouselViewPager(){
+        val carousel = binding.carouselView
+        binding.root.removeView(carousel)
+
+        val carouselPager = binding.carouselViewPager
+
+    }
+
     private fun populateTextViews(){
         binding.dishName.text = food.name
         binding.dishPriceText.text = food.price + "€"
@@ -61,5 +75,14 @@ class DetailActivity : AppCompatActivity() {
             ingredientsList += "- $ingredient\n"
         }
         binding.ingredientsTextview.text = ingredientsList
+    }
+
+    private fun updateQuantityText(){
+        binding.qtyTextV.text = orderQuantity.toString()
+    }
+
+    private fun populateQuantityLayout(){
+        updateQuantityText()
+
     }
 }
