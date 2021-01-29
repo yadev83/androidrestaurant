@@ -29,12 +29,18 @@ class CategoryActivity : AppCompatActivity() {
 
         TYPE = intent.getSerializableExtra(CATEGORY_NAME) as ItemType
 
-        //FOOD OBSERVER SETUP
-        val foodObserver = Observer<ArrayList<FoodModel>> {
-            binding.rvFood.adapter = FoodsAdapter(it)
+        FoodModel.currentFoods.value?.let {
+            val adapter = FoodsAdapter(it) { food ->
+                Log.d("BUTTON", "Clicked food : "+ food.id)
+                val intent = Intent(this, DetailActivity::class.java).apply{
+                    putExtra("DISH_ID", food.id)
+                    putExtra("TITLE", food.name)
+                }
+                startActivity(this, intent, null)
+            }
+            binding.rvFood.adapter = adapter
             binding.rvFood.layoutManager = LinearLayoutManager(this)
         }
-        FoodModel.currentFoods.observe(this, foodObserver)
 
         when(TYPE){
             ItemType.STARTER -> buildStartersPage()

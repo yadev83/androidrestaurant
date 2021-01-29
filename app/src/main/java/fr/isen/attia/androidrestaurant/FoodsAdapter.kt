@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ExpandableListView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -14,14 +15,32 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<FoodsAdapter.ViewHolder>() {
+class FoodsAdapter(private val mFoods : List<FoodModel>,
+                   private val dishClickListener: (FoodModel) -> Unit)
+    : RecyclerView.Adapter<FoodsAdapter.ViewHolder>() {
     private lateinit var context: Context
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView){
-        val nameTextView: TextView = itemView.findViewById<TextView>(R.id.food_name)
-        val priceTextView: TextView = itemView.findViewById<TextView>(R.id.food_price)
-        val dishImage: ImageView = itemView.findViewById<ImageView>(R.id.food_image)
-        val layout = itemView.rootView
+        private val nameTextView: TextView = itemView.findViewById<TextView>(R.id.food_name)
+        private val priceTextView: TextView = itemView.findViewById<TextView>(R.id.food_price)
+        private val dishImage: ImageView = itemView.findViewById<ImageView>(R.id.food_image)
+        private val layout = itemView.rootView
+
+        fun bind(food: FoodModel){
+            layout.setOnClickListener{
+                dishClickListener.invoke(food)
+            }
+
+            nameTextView.text = food.name
+            priceTextView.text = food.price.toString() + " €"
+
+            val img = dishImage
+            Log.d("IMAGE", food.images?.first() as String)
+            val imgUrl = food.images?.first()
+            if(!imgUrl.isNullOrEmpty()){
+                Picasso.with(context).load(imgUrl).into(img)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,23 +58,6 @@ class FoodsAdapter(private val mFoods : List<FoodModel>) : RecyclerView.Adapter<
     override fun onBindViewHolder(viewHolder: FoodsAdapter.ViewHolder, position: Int) {
         val food: FoodModel = mFoods.get(position)
 
-        viewHolder.nameTextView.text = food.name
-        viewHolder.priceTextView.text = food.price.toString() + " €"
-
-        val img = viewHolder.dishImage
-        Log.d("IMAGE", food.images?.first() as String)
-        val imgUrl = food.images?.first()
-        if(!imgUrl.isNullOrEmpty()){
-            Picasso.with(context).load(imgUrl).into(img)
-        }
-
-        viewHolder.layout.setOnClickListener{
-            Log.d("BUTTON", "Clicked food : "+ food.id)
-            val intent = Intent(HomeActivity.context, DetailActivity::class.java).apply{
-                putExtra("DISH_ID", food.id)
-                putExtra("TITLE", food.name)
-            }
-            startActivity(HomeActivity.context, intent, null)
-        }
+        viewHolder.bind(food)
     }
 }
