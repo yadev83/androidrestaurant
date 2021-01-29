@@ -9,6 +9,7 @@ import com.squareup.picasso.Picasso
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 import fr.isen.attia.androidrestaurant.databinding.ActivityDetailBinding
+import kotlin.math.max
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -16,7 +17,7 @@ class DetailActivity : AppCompatActivity() {
 
     private var id: Int? = 0
 
-    private var orderQuantity = 0
+    private var orderQuantity = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,12 +89,23 @@ class DetailActivity : AppCompatActivity() {
         binding.ingredientsTextview.text = ingredientsList
     }
 
-    private fun updateQuantityText(){
+    private fun refreshShop(){
         binding.qtyTextV.text = orderQuantity.toString()
+        var subtotalPrice: Float = (food.price?.toFloat() ?: 0.0F)
+        subtotalPrice = subtotalPrice?.times(orderQuantity)
+        binding.totalPriceV.text = subtotalPrice.toString()
     }
 
     private fun populateQuantityLayout(){
-        updateQuantityText()
+        binding.minusBtn.setOnClickListener{
+            orderQuantity = max(1, orderQuantity-1)
+            refreshShop()
+        }
+        binding.plusBtn.setOnClickListener{
+            orderQuantity += 1
+            refreshShop()
+        }
 
+        refreshShop()
     }
 }
