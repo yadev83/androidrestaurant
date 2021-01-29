@@ -54,6 +54,7 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
         }
 
         fun gatherFoodFromApi(context: CategoryActivity, title: String){
+            context.enableLoadingAnimation()
             resultFromCache(context)?.let {
                 // La requete est en cache
                 parseResult(it, title)
@@ -103,6 +104,13 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
             val sharedPreferences = context.getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             editor.putString(REQUEST_CACHE, response)
+            editor.apply()
+        }
+
+        fun clearCache(context: Context){
+            val sharedPreferences = context.getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.remove(REQUEST_CACHE)
             editor.apply()
         }
 

@@ -16,7 +16,7 @@ import fr.isen.attia.androidrestaurant.databinding.ActivityCategoryBinding
 import java.io.Serializable
 
 class CategoryActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCategoryBinding
+    lateinit var binding: ActivityCategoryBinding
     private val TAG = "Category"
     private lateinit var loadingView: View
 
@@ -35,7 +35,7 @@ class CategoryActivity : AppCompatActivity() {
 
         val inflater = LayoutInflater.from(this)
         loadingView = inflater.inflate(R.layout.loading, binding.root, false)
-        enableLoadingAnimation()
+        //enableLoadingAnimation()
 
         TYPE = intent.getSerializableExtra(CATEGORY_NAME) as ItemType
 
@@ -43,6 +43,11 @@ class CategoryActivity : AppCompatActivity() {
             buildFoodList(observed)
         }
         FoodModel.currentFoods.observe(this, foodObserver)
+
+        binding.refreshLayout.setOnRefreshListener(){
+            FoodModel.clearCache(this)
+            FoodModel.gatherFoodFromApi(this, title as String)
+        }
 
         when(TYPE){
             ItemType.STARTER -> buildStartersPage()
@@ -73,13 +78,18 @@ class CategoryActivity : AppCompatActivity() {
     }
 
     fun enableLoadingAnimation(){
-        Log.d("LOADING", "Displaying load animation")
-        binding.root.addView(loadingView)
+        if(loadingView.parent == null){
+            Log.d("LOADING", "Displaying load animation")
+            binding.root.addView(loadingView)
+        }
     }
 
     fun disableLoadingAnimation(){
-        Log.d("LOADING", "Loading finished, removing animation view")
-        binding.root.removeView(loadingView)
+        if(loadingView.parent != null){
+            Log.d("LOADING", "Loading finished, removing animation view")
+            binding.root.removeView(loadingView)
+        }
+        binding.refreshLayout.isRefreshing = false
     }
 
     private fun buildStartersPage(){
