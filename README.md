@@ -23,8 +23,8 @@ Once downloaded, simply drag the file to your own device and install the apk as 
 * [Android Studio](https://developer.android.com/studio) - An IDE made for Android app development based on IntelliJ.  
 
 ## Versions
-**Last Stable Version :** [1.2.2-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.0-d)  
-**Last Version :** [1.2.2-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.0-d)  
+**Last Stable Version :** [1.2.2-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.2-d)  
+**Last Version :** [1.2.2-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.2-d)  
 
 Full Versions list : [Click here to see](https://github.com/yadev83/androidrestaurant/tags)  
 
