@@ -29,18 +29,14 @@ class CategoryActivity : AppCompatActivity() {
 
         TYPE = intent.getSerializableExtra(CATEGORY_NAME) as ItemType
 
-        FoodModel.currentFoods.value?.let {
-            val adapter = FoodsAdapter(it) { food ->
-                Log.d("BUTTON", "Clicked food : "+ food.id)
-                val intent = Intent(this, DetailActivity::class.java).apply{
-                    putExtra("DISH_ID", food.id)
-                    putExtra("TITLE", food.name)
-                }
-                startActivity(this, intent, null)
+        val foodObserver = Observer<ArrayList<FoodModel>>{ observed ->
+            observed?.let {
+                buildFoodList(it)
+            } ?: run {
+                buildFoodList(ArrayList<FoodModel>())
             }
-            binding.rvFood.adapter = adapter
-            binding.rvFood.layoutManager = LinearLayoutManager(this)
         }
+        FoodModel.currentFoods.observe(this, foodObserver)
 
         when(TYPE){
             ItemType.STARTER -> buildStartersPage()
@@ -49,6 +45,19 @@ class CategoryActivity : AppCompatActivity() {
         }
         binding.categoryTitleText.text = title
         FoodModel.gatherFoodFromApi(this, title as String)
+    }
+
+    private fun buildFoodList(foods : ArrayList<FoodModel>?){
+        val adapter = FoodsAdapter(foods as List<FoodModel>) { food ->
+            Log.d("BUTTON", "Clicked food : "+ food.id)
+            val intent = Intent(this, DetailActivity::class.java).apply{
+                putExtra("DISH_ID", food.id)
+                putExtra("TITLE", food.name)
+            }
+            startActivity(this, intent, null)
+        }
+        binding.rvFood.adapter = adapter
+        binding.rvFood.layoutManager = LinearLayoutManager(this)
     }
 
     private fun buildStartersPage(){
