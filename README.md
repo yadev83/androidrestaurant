@@ -23,13 +23,14 @@ Once downloaded, simply drag the file to your own device and install the apk as 
 * [Android Studio](https://developer.android.com/studio) - An IDE made for Android app development based on IntelliJ.  
 
 ## Versions
-**Last Stable Version :** [1.2.2-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.2-d)  
-**Last Version :** [1.2.2-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.2-d)  
+**Last Stable Version :** [1.3.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.3.0-d)  
+**Last Version :** [1.3.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.3.0-d)  
 
 Full Versions list : [Click here to see](https://github.com/yadev83/androidrestaurant/tags)  
 
 ### Version Log  
-**[1.2.2-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.2-d)**: Fixes all banner constraints that remained in 1.2.1d  
+**[1.3.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.3.0-d)**: Adds carousel (one using a lib and custom one using view pager) and quantity texts and arithmetic   
+**[1.2.2-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.2-d)**: Fixes all banner constraints errors that remained in 1.2.1d  
 **[1.2.1-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.1-d)**: Fixes graphical issue on category activity  
 **[1.2.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.0-d)**: Adds even more graphical updates to the app and a full set of activities to see all the dish list from categories to specific details (ingredients and prices). Now downloadable as an APK from release page as well.  
 **[1.1.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.1.0-d)**: Adds some design stuff to the app. Dishes details access will be refactored soon though. This is why it isn't a major stable version.  
