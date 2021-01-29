@@ -25,7 +25,35 @@ class DetailActivity : AppCompatActivity() {
         Log.d("SERIALIZED_FOOD", food.toString())
 
         populateCarousel()
+        populateTextViews()
+    }
 
+    private fun populateCarousel(){
+        carousel = binding.carouselView
+        carousel.pageCount = food.images?.size ?: 0
+
+        var noImages: Boolean = true
+        food.images?.forEach { imageURL ->
+            if(!imageURL.isNullOrEmpty()){
+                noImages = false
+            }
+        }
+
+        if(noImages) {
+            binding.root.removeView(carousel)
+        }else{
+            val imageListener: ImageListener = ImageListener{ i: Int, imageView: ImageView ->
+                val imgUrl = food.images?.get(i)
+                if(!imgUrl.isNullOrEmpty()){
+                    Picasso.with(this).load(imgUrl).into(imageView)
+                }
+            }
+            carousel.setImageListener(imageListener)
+        }
+    }
+
+    private fun populateTextViews(){
+        binding.dishName.text = food.name
         binding.dishPriceText.text = food.price + "€"
 
         var ingredientsList = ""
@@ -33,19 +61,5 @@ class DetailActivity : AppCompatActivity() {
             ingredientsList += "- $ingredient\n"
         }
         binding.ingredientsTextview.text = ingredientsList
-    }
-
-    private fun populateCarousel(){
-        carousel = binding.root.findViewById(R.id.carouselView)
-        carousel.pageCount = food.images?.size ?: 0
-
-        val imageListener: ImageListener = ImageListener{ i: Int, imageView: ImageView ->
-            val imgUrl = food.images?.get(i)
-            if(!imgUrl.isNullOrEmpty()){
-                Picasso.with(this).load(imgUrl).into(imageView)
-            }
-        }
-
-        carousel.setImageListener(imageListener)
     }
 }
