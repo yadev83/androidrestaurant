@@ -15,21 +15,15 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        title = intent.getStringExtra("TITLE")
-        id = intent.getIntExtra("DISH_ID", 0)
+        val food: SerializedFood = intent.getSerializableExtra("DISH") as SerializedFood
+        Log.d("SERIALIZED_FOOD", food.toString())
 
-        val food: FoodModel? = FoodModel.getFoodById(id!!)
+        binding.dishPriceText.text = food.price + "€"
 
-        if(food != null){
-            binding.dishPriceText.text = food.price.toString() + "€"
-
-            var ingredientsList: String = ""
-            food.ingredients?.forEach { ingredient ->
-                ingredientsList += "- $ingredient\n"
-            }
-            binding.ingredientsTextview.text = ingredientsList
-        }else{
-            Log.d("DETAIL", "Could not find given dish id in food array")
+        var ingredientsList = ""
+        food.ingredients?.forEach { ingredient ->
+            ingredientsList += "- $ingredient\n"
         }
+        binding.ingredientsTextview.text = ingredientsList
     }
 }
