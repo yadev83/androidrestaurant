@@ -19,7 +19,10 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
     fun Serialize(): SerializedFood{
         var sId = id
         var sName = name
-        var sImages = images as ArrayList<String?>
+        var sImages: ArrayList<String?> = ArrayList()
+        images?.forEach { image ->
+            sImages.add(image)
+        }
         var sIngredients: ArrayList<String?> = ArrayList()
         ingredients?.forEach { ingredient ->
             sIngredients.add(ingredient.name_fr)
