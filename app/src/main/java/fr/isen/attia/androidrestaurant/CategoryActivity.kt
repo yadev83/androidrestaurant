@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieAnimationView
 import fr.isen.attia.androidrestaurant.HomeActivity.Companion.CATEGORY_NAME
 import fr.isen.attia.androidrestaurant.databinding.ActivityCategoryBinding
+import java.io.Serializable
 
 class CategoryActivity : AppCompatActivity() {
     lateinit var binding: ActivityCategoryBinding
@@ -67,8 +68,7 @@ class CategoryActivity : AppCompatActivity() {
         val adapter = FoodsAdapter(dishes as List<FoodModel>) { food ->
             Log.d("BUTTON", "Clicked food : "+ food.id)
             val intent = Intent(this, DetailActivity::class.java).apply{
-                putExtra("DISH_ID", food.id)
-                putExtra("TITLE", food.name)
+                putExtra("DISH", food.Serialize())
             }
             startActivity(this, intent, null)
         }

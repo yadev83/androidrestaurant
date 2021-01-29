@@ -16,6 +16,22 @@ import org.json.JSONObject
 class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val ingredients: Array<FoodIngredient>?, val price: Float?){
     var ready: Boolean = false
 
+    fun Serialize(): SerializedFood{
+        var sId = id
+        var sName = name
+        var sImages: ArrayList<String?> = ArrayList()
+        images?.forEach { image ->
+            sImages.add(image)
+        }
+        var sIngredients: ArrayList<String?> = ArrayList()
+        ingredients?.forEach { ingredient ->
+            sIngredients.add(ingredient.name_fr)
+        }
+        var sPrice = price.toString()
+
+        return SerializedFood(sId, sName, sImages, sIngredients, sPrice)
+    }
+
     companion object{
         private var lastItemId = 0
         var currentFoods: MutableLiveData<ArrayList<FoodModel>> = MutableLiveData()

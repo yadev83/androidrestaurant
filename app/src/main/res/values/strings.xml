@@ -6,4 +6,5 @@
     <string name="menu_btn_desserts">Desserts</string>
     <string name="menu_welcome">Bienvenue chez DroidRestaurant !</string>
     <string name="drawable_banner_desc">Bannière du restaurant</string>
+    <string name="dish_ingredients_title">Ingrédients :</string>
 </resources>

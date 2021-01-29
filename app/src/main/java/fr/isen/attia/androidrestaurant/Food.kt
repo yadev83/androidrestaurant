@@ -1,5 +1,7 @@
 package fr.isen.attia.androidrestaurant
 
+import java.io.Serializable
+
 //Data classes needed for the JSON conversion
 data class FoodData(
         var data: Array<FoodCategory>
@@ -46,3 +48,11 @@ data class FoodPrice(
         var update_date: String? = null,
         var size: String? = null
 ){}
+
+data class SerializedFood(
+        var id: Int? = null,
+        var name: String? = null,
+        var images: ArrayList<String?>? = null,
+        var ingredients: ArrayList<String?>? = null,
+        var price: String? = null
+): Serializable{}
