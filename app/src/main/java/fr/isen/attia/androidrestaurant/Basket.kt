@@ -16,6 +16,15 @@ class Basket(val items: MutableList<BasketItem>): Serializable {
             return acc
         }
 
+    var uniqueItemsCount: Int = 0
+        get(){
+            var acc = 0
+            items.forEach{item ->
+                acc++
+            }
+            return acc
+        }
+
     fun addItem(item: BasketItem){
         val existingItem = items.firstOrNull(){
             it.food.id == item.food.id
@@ -30,6 +39,10 @@ class Basket(val items: MutableList<BasketItem>): Serializable {
     fun save(context: Context){
         val jsonFile = File(context.cacheDir.absolutePath + BASKET_FNAME)
         jsonFile.writeText(GsonBuilder().create().toJson(this))
+    }
+
+    operator fun get(position: Int): BasketItem {
+        return items[position]
     }
 
     companion object{
