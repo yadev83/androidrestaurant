@@ -2,12 +2,13 @@ package fr.isen.attia.androidrestaurant
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.Menu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import fr.isen.attia.androidrestaurant.basket.Basket
+import fr.isen.attia.androidrestaurant.basket.BasketActivity
 
 open class BaseActivity: AppCompatActivity(){
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

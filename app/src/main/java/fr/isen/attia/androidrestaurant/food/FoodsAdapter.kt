@@ -1,4 +1,4 @@
-package fr.isen.attia.androidrestaurant
+package fr.isen.attia.androidrestaurant.food
 
 import android.content.Context
 import android.util.Log
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import fr.isen.attia.androidrestaurant.R
 
 class FoodsAdapter(private val mFoods : List<FoodModel>,
                    private val dishClickListener: (FoodModel) -> Unit)
@@ -50,7 +51,7 @@ class FoodsAdapter(private val mFoods : List<FoodModel>,
         return mFoods.size
     }
 
-    override fun onBindViewHolder(viewHolder: FoodsAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val food: FoodModel = mFoods.get(position)
 
         viewHolder.bind(food)

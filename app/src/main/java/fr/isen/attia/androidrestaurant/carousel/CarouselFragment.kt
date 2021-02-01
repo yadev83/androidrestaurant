@@ -1,4 +1,4 @@
-package fr.isen.attia.androidrestaurant
+package fr.isen.attia.androidrestaurant.carousel
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

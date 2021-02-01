@@ -1,22 +1,20 @@
-package fr.isen.attia.androidrestaurant
+package fr.isen.attia.androidrestaurant.food
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import fr.isen.attia.androidrestaurant.CategoryActivity
 import org.json.JSONObject
 
 class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val ingredients: Array<FoodIngredient>?, val price: Float?){
     var ready: Boolean = false
 
-    fun Serialize(): SerializedFood{
+    fun Serialize(): SerializedFood {
         var sId = id
         var sName = name
         var sImages: ArrayList<String?> = ArrayList()
