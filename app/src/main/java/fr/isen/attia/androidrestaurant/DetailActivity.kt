@@ -93,7 +93,7 @@ class DetailActivity : AppCompatActivity() {
         binding.qtyTextV.text = orderQuantity.toString()
         var subtotalPrice: Float = (food.price?.toFloat() ?: 0.0F)
         subtotalPrice = subtotalPrice?.times(orderQuantity)
-        binding.totalPriceV.text = subtotalPrice.toString()
+        binding.totalPriceV.text = subtotalPrice.toString() + "€"
     }
 
     private fun populateQuantityLayout(){
