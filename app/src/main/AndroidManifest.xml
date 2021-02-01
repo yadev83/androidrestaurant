@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Androidrestaurant"
         android:usesCleartextTraffic="true">
         <activity android:name=".basket.BasketActivity"></activity>
-        <activity android:name=".DetailActivity" />
+        <activity android:name=".food.FoodDetailActivity" />
         <activity android:name=".CategoryActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>

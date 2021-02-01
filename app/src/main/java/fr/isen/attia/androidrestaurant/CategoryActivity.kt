@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.isen.attia.androidrestaurant.HomeActivity.Companion.CATEGORY_NAME
 import fr.isen.attia.androidrestaurant.databinding.ActivityCategoryBinding
+import fr.isen.attia.androidrestaurant.food.FoodDetailActivity
 import fr.isen.attia.androidrestaurant.food.FoodModel
 import fr.isen.attia.androidrestaurant.food.FoodsAdapter
 
@@ -65,7 +66,7 @@ class CategoryActivity : BaseActivity() {
 
         val adapter = FoodsAdapter(dishes as List<FoodModel>) { food ->
             Log.d("BUTTON", "Clicked food : " + food.id)
-            val intent = Intent(this, DetailActivity::class.java).apply {
+            val intent = Intent(this, FoodDetailActivity::class.java).apply {
                 putExtra("DISH", food.Serialize())
             }
             startActivity(this, intent, null)

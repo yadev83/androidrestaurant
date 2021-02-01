@@ -1,4 +1,4 @@
-package fr.isen.attia.androidrestaurant
+package fr.isen.attia.androidrestaurant.food
 
 import android.os.Bundle
 import android.util.Log
@@ -8,14 +8,15 @@ import androidx.constraintlayout.widget.ConstraintSet
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import com.synnapps.carouselview.ImageListener
+import fr.isen.attia.androidrestaurant.BaseActivity
+import fr.isen.attia.androidrestaurant.R
 import fr.isen.attia.androidrestaurant.basket.Basket
 import fr.isen.attia.androidrestaurant.basket.BasketItem
 import fr.isen.attia.androidrestaurant.carousel.CarouselAdapter
 import fr.isen.attia.androidrestaurant.databinding.ActivityDetailBinding
-import fr.isen.attia.androidrestaurant.food.SerializedFood
 import kotlin.math.max
 
-class DetailActivity : BaseActivity() {
+class FoodDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var food: SerializedFood
 
