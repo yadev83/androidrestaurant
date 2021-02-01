@@ -21,7 +21,10 @@ class BasketItemAdapter(private val basket: Basket, private val delegate: Basket
 
         fun bind(item: BasketItem){
             itemName.text = item.food.name
-            itemPrice.text = item.food.price + " €"
+            var priceText = item.food.price + " € "
+            if(item.count > 1)
+                priceText += context.getString(R.string.total_label_start) + (item.food.price?.toFloat()?.times(item.count)).toString() + context.getString(R.string.total_label_end)
+            itemPrice.text = priceText
             itemQty.text = context.getString(R.string.quantity_basket) + item.count.toString()
             itemDeleteBtn.setOnClickListener{
                 delegate.onDeleteItem(item)

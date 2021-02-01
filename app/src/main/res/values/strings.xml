@@ -12,5 +12,7 @@
     <string name="basket_validation">Le plat à été ajouté au panier ! Bon appetit !</string>
     <string name="basket_deletion">L\'objet à été retiré de votre commande</string>
     <string name="quantity_basket">Quantité : </string>
+    <string name="total_label_start">(Prix total : </string>
+    <string name="total_label_end"> €)</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
