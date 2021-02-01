@@ -1,6 +1,6 @@
 package fr.isen.attia.androidrestaurant
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -13,7 +13,11 @@ import com.synnapps.carouselview.ImageListener
 import fr.isen.attia.androidrestaurant.databinding.ActivityDetailBinding
 import kotlin.math.max
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : BaseActivity() {
+    companion object{
+        const val ITEMS_COUNT = "Items count"
+        const val USER_PREFERENCES_NAME = "Users Preferences Name"
+    }
     private lateinit var binding: ActivityDetailBinding
     private lateinit var food: SerializedFood
 
@@ -126,11 +130,22 @@ class DetailActivity : AppCompatActivity() {
         binding.totalPriceV.text = subtotalPrice.toString() + "€"
     }
 
+    private fun refreshMenu(basket: Basket){
+        val count = basket.itemsCount
+        val sharedPreferences = getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt(ITEMS_COUNT, count)
+        editor.apply()
+        invalidateOptionsMenu()
+    }
+
     private fun addToBasket(food: SerializedFood, count: Int){
         val basket = Basket.getBasket(this)
         basket.addItem(BasketItem(food, count))
         basket.save(this)
         val json = GsonBuilder().create().toJson(basket)
+        Log.d("basket", json)
+        refreshMenu(basket)
         Snackbar.make(binding.root, getString(R.string.basket_validation), Snackbar.LENGTH_SHORT).show()
     }
 }

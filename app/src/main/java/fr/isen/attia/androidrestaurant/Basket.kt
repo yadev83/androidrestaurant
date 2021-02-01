@@ -6,7 +6,15 @@ import java.io.File
 import java.io.Serializable
 
 class Basket(val items: MutableList<BasketItem>): Serializable {
-    //val jsonFile = File(context.cacheDir.absolutePath + BASKET_FNAME)
+
+    var itemsCount: Int = 0
+        get() {
+            var acc = 0
+            items.forEach(){item ->
+                acc += item.count
+            }
+            return acc
+        }
 
     fun addItem(item: BasketItem){
         val existingItem = items.firstOrNull(){

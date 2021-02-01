@@ -1,21 +1,17 @@
 package fr.isen.attia.androidrestaurant
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.airbnb.lottie.LottieAnimationView
 import fr.isen.attia.androidrestaurant.HomeActivity.Companion.CATEGORY_NAME
 import fr.isen.attia.androidrestaurant.databinding.ActivityCategoryBinding
-import java.io.Serializable
 
-class CategoryActivity : AppCompatActivity() {
+class CategoryActivity : BaseActivity() {
     lateinit var binding: ActivityCategoryBinding
     private val TAG = "Category"
     private lateinit var loadingView: View
