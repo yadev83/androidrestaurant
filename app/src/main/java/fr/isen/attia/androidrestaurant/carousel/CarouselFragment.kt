@@ -30,6 +30,8 @@ class CarouselFragment : Fragment() {
 
     companion object{
         const val URL = "url"
-        fun newInstance(url: String) = CarouselFragment().apply{ arguments = Bundle().apply{ putString(URL, url) } }
+        fun newInstance(url: String): CarouselFragment?{
+            return CarouselFragment().apply{ arguments = Bundle().apply{ putString(URL, url) } }
+        }
     }
 }

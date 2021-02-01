@@ -84,7 +84,7 @@ class DetailActivity : BaseActivity() {
             binding.root.removeView(carousel)
         }else{
             val carouselPager = binding.carouselViewPager
-            carouselPager.adapter = CarouselAdapter(this, food.images as List<String>)
+            carouselPager.adapter = CarouselAdapter(this, food.images as List<String?>)
 
             var constraintSet = ConstraintSet()
             constraintSet.clone(binding.root)
@@ -124,7 +124,7 @@ class DetailActivity : BaseActivity() {
     private fun refreshShop(){
         binding.qtyTextV.text = orderQuantity.toString()
         var subtotalPrice: Float = (food.price?.toFloat() ?: 0.0F)
-        subtotalPrice = subtotalPrice?.times(orderQuantity)
+        subtotalPrice = subtotalPrice.times(orderQuantity)
         binding.totalPriceV.text = subtotalPrice.toString() + "€"
     }
 
