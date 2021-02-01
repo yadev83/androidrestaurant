@@ -1,13 +1,15 @@
 package fr.isen.attia.androidrestaurant
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import fr.isen.attia.androidrestaurant.databinding.BasketItemBinding
 
-class BasketItemAdapter(private val basket: Basket): RecyclerView.Adapter<BasketItemAdapter.BasketViewHolder>() {
+class BasketItemAdapter(private val basket: Basket, private val delegate: BasketItemInterface): RecyclerView.Adapter<BasketItemAdapter.BasketViewHolder>() {
     lateinit var context: Context
 
     inner class BasketViewHolder(binding: BasketItemBinding) : RecyclerView.ViewHolder(binding.root){
@@ -21,9 +23,12 @@ class BasketItemAdapter(private val basket: Basket): RecyclerView.Adapter<Basket
             itemName.text = item.food.name
             itemPrice.text = item.food.price + " €"
             itemQty.text = context.getString(R.string.quantity_basket) + item.count.toString()
-            //TODO itemImage w/ Picasso
             itemDeleteBtn.setOnClickListener{
-                //TODO DELETE BUTTON
+                delegate.onDeleteItem(item)
+            }
+            val imgUrl = item.food.images?.first()
+            if(!imgUrl.isNullOrEmpty()){
+                Picasso.with(context).load(imgUrl).into(itemImage)
             }
         }
     }
@@ -34,7 +39,7 @@ class BasketItemAdapter(private val basket: Basket): RecyclerView.Adapter<Basket
     }
 
     override fun getItemCount(): Int {
-        return basket.uniqueItemsCount
+        return basket.items.count()
     }
 
     override fun onBindViewHolder(holder: BasketViewHolder, position: Int) {

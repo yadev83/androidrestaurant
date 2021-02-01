@@ -6,23 +6,13 @@ import java.io.File
 import java.io.Serializable
 
 class Basket(val items: MutableList<BasketItem>): Serializable {
-
     var itemsCount: Int = 0
         get() {
-            var acc = 0
-            items.forEach(){item ->
-                acc += item.count
+            return if(items.count() > 0){
+                items.map{ it.count }.reduce{acc, i -> acc + i}
+            }else{
+                0
             }
-            return acc
-        }
-
-    var uniqueItemsCount: Int = 0
-        get(){
-            var acc = 0
-            items.forEach{item ->
-                acc++
-            }
-            return acc
         }
 
     fun addItem(item: BasketItem){
@@ -37,6 +27,11 @@ class Basket(val items: MutableList<BasketItem>): Serializable {
     }
 
     fun save(context: Context){
+        val sharedPreferences = context.getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt(ITEMS_COUNT, itemsCount)
+        editor.apply()
+
         val jsonFile = File(context.cacheDir.absolutePath + BASKET_FNAME)
         jsonFile.writeText(GsonBuilder().create().toJson(this))
     }
@@ -47,6 +42,8 @@ class Basket(val items: MutableList<BasketItem>): Serializable {
 
     companion object{
         const val BASKET_FNAME = "basket.json"
+        const val ITEMS_COUNT = "Items count"
+        const val USER_PREFERENCES_NAME = "Users Preferences Name"
 
         fun getBasket(context: Context): Basket{
             val jsonFile = File(context.cacheDir.absolutePath + BASKET_FNAME)
@@ -58,6 +55,11 @@ class Basket(val items: MutableList<BasketItem>): Serializable {
             }
         }
     }
+}
+
+interface BasketItemInterface{
+    fun onDeleteItem(item: BasketItem)
+    fun onShowDetail(item: BasketItem)
 }
 
 class BasketItem(val food: SerializedFood, var count: Int): Serializable{}
