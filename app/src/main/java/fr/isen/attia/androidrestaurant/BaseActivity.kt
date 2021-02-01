@@ -1,10 +1,12 @@
 package fr.isen.attia.androidrestaurant
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.Menu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 
 open class BaseActivity: AppCompatActivity(){
@@ -29,10 +31,15 @@ open class BaseActivity: AppCompatActivity(){
         countText?.textScaleX = textScale
 
         menuView?.setOnClickListener{
-            Log.d("BASKET", "Start basket activity !")
+            ContextCompat.startActivity(this, Intent(this, BasketActivity::class.java), null)
         }
 
         return true
+    }
+
+    override fun onResume(){
+        super.onResume()
+        invalidateOptionsMenu()
     }
 
     private fun getItemsCount(): Int {
