@@ -42,7 +42,8 @@ open class BaseActivity: AppCompatActivity(){
 
         /** THIS CLICK LISTENER STARTS A BASKET ACTIVITY WHEN CLICKED ON BASKET ICON **/
         menuView?.setOnClickListener{
-            ContextCompat.startActivity(this, Intent(this, BasketActivity::class.java), null)
+            if(count > 0)
+                ContextCompat.startActivity(this, Intent(this, BasketActivity::class.java), null)
         }
 
         return true

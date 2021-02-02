@@ -6,6 +6,8 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import fr.isen.attia.androidrestaurant.R
+import fr.isen.attia.androidrestaurant.basket.Basket
+import fr.isen.attia.androidrestaurant.order.LoginActivity
 import fr.isen.attia.androidrestaurant.order.OrderActivity
 import fr.isen.attia.androidrestaurant.order.RegisterActivity
 

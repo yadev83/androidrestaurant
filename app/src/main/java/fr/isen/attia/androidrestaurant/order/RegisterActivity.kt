@@ -1,5 +1,6 @@
 package fr.isen.attia.androidrestaurant.order
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,13 +25,16 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun populateActivity(){
-        validateBtn = binding.regFormValidate
-        validateBtn.setOnClickListener{
+        binding.regFormValidate.setOnClickListener{
             user = UserAccount(binding.regFormEmail.text.toString(),
                 binding.regFormPassword.text.toString(),
                 binding.regFormFirstname.text.toString(),
                 binding.regFormLastname.text.toString())
             user.registerRequest(this)
+        }
+
+        binding.loginButton.setOnClickListener{
+            startActivity(Intent(this, LoginActivity::class.java), null)
         }
     }
 }

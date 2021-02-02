@@ -50,6 +50,37 @@ class UserAccount(var email: String?, var password: String?, var firstname: Stri
         return 0
     }
 
+    fun loginRequest(context: Context, email: String?, password: String?): Int{
+        val queue = Volley.newRequestQueue(context)
+        val jsonData = JSONObject()
+        jsonData.put(ID_SHOP, idShop)
+        jsonData.put(EMAIL, email)
+        jsonData.put(PASSWORD, password)
+
+        Log.d("JSON", jsonData.toString())
+
+        var request = JsonObjectRequest(
+            Request.Method.POST,
+            urlLogin,
+            jsonData,
+            { response ->
+                Log.d("REQUEST", response.toString())
+                save(context)
+            },
+            { error ->
+                error.message?.let {
+                    Log.d("request", it)
+                } ?: run {
+                    Log.d("request", error.toString())
+                    Log.d("request", String(error.networkResponse.data))
+                }
+            }
+        )
+        queue.add(request)
+
+        return 0
+    }
+
     fun save(context: Context){
         val sharedPreferences = context.getSharedPreferences(Basket.USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
