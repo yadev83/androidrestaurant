@@ -11,10 +11,21 @@ import com.google.gson.Gson
 import fr.isen.attia.androidrestaurant.CategoryActivity
 import org.json.JSONObject
 
+/**
+ * @brief FoodModel is the main class that represents a Food Item in memory.
+ * It is made to gather a Food list from the API and contains the methods needed to manage them.
+ * @param id The id of the food item
+ * @param name The name of the food item
+ * @param images An array of Strings containing images urls
+ * @param ingredients An array of Food ingredients
+ * @param price The price of the item
+ */
 class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val ingredients: Array<FoodIngredient>?, val price: Float?){
-    var ready: Boolean = false
 
-    fun Serialize(): SerializedFood {
+    /**
+     * @brief this method serializes a FoodModel and returns the corresponsing SerializedFood
+     */
+    fun serialize(): SerializedFood {
         var sId = id
         var sName = name
         var sImages: ArrayList<String?> = ArrayList()
@@ -30,21 +41,26 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
         return SerializedFood(sId, sName, sImages, sIngredients, sPrice)
     }
 
+    /**
+     * @brief This companion object contains methods and variables for requests mainly.
+     */
     companion object{
-        private var lastItemId = 0
+        /**
+         * @brief This is an array of FoodModel containing the last requests result
+         * It is defined as a "MutableLiveData" because we want to set a listener on it.
+         * This way we are informed when it changes (that is, when a request is a success)
+         */
         var currentFoods: MutableLiveData<ArrayList<FoodModel>> = MutableLiveData()
 
-        const val USER_PREFERENCES_NAME = "USER_PREFERENCES_NAME"
-        const val REQUEST_CACHE = "REQUEST_CACHE"
+        private const val USER_PREFERENCES_NAME = "USER_PREFERENCES_NAME"
+        private const val REQUEST_CACHE = "REQUEST_CACHE"
 
-        fun createFoodList(numItems: Int){
-            var foods = ArrayList<FoodModel>()
-            for (i in 1..numItems){
-                foods.add(FoodModel(++lastItemId, "Food $lastItemId", null, null, null))
-            }
-            currentFoods.value = foods
-        }
-
+        /**
+         * @brief Returns the food model corresponding to the given dishId in params
+         * @param dishId The id of the foodModel we want
+         * @return FoodModel? if the id is present in currentFoods
+         * @return null if there is no result
+         */
         fun getFoodById(dishId: Int) : FoodModel?{
             currentFoods.value?.forEach{ food ->
                 if(dishId == food.id){
@@ -54,6 +70,11 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
             return null
         }
 
+        /**
+         * @brief This method contacts the Api to fill the currentFoods array with realtime data
+         * @param context The CategoryActivity in which we want to load food Models
+         * @param title The title of the category used to refine the API request
+         */
         fun gatherFoodFromApi(context: CategoryActivity, title: String){
             context.enableLoadingAnimation()
             resultFromCache(context)?.let {
@@ -82,8 +103,13 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
             }
         }
 
+        /**
+         * @brief This method is called by gatherFoodFromApi to parse a response string.
+         * @param response The response string to parse
+         * @param title The title of the category used to filter results
+         */
         private fun parseResult(response: String, title: String){
-            var foodData: FoodData = Gson().fromJson<FoodData>(response.toString(), FoodData::class.java)
+            var foodData: FoodData = Gson().fromJson<FoodData>(response, FoodData::class.java)
             var foods = ArrayList<FoodModel>()
             foodData.data.forEach{category ->
                 category.items.forEach {food ->
@@ -101,6 +127,11 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
             }
         }
 
+        /**
+         * @brief This method is called by gatherFoodFromApi to cache the response string.
+         * @param context Needed to access the application sharedPreferences (for storage)
+         * @param response The string to put in cache
+         */
         private fun cacheResult(context: Context, response: String) {
             val sharedPreferences = context.getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
@@ -108,6 +139,9 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
             editor.apply()
         }
 
+        /**
+         * @brief This method removes the request cache from the SharedPreferences
+         */
         fun clearCache(context: Context){
             val sharedPreferences = context.getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
@@ -115,6 +149,10 @@ class FoodModel(val id: Int, val name: String, var images: Array<String?>?, val 
             editor.apply()
         }
 
+        /**
+         * @brief Returns the last response string that has been put in the cache.
+         * Returns null if cache is empty.
+         */
         private fun resultFromCache(context: Context): String? {
             val sharedPreferences = context.getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
             return sharedPreferences.getString(REQUEST_CACHE, null)

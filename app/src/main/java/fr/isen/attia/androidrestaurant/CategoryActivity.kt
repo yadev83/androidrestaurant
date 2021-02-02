@@ -67,7 +67,7 @@ class CategoryActivity : BaseActivity() {
         val adapter = FoodsAdapter(dishes as List<FoodModel>) { food ->
             Log.d("BUTTON", "Clicked food : " + food.id)
             val intent = Intent(this, FoodDetailActivity::class.java).apply {
-                putExtra("DISH", food.Serialize())
+                putExtra("DISH", food.serialize())
             }
             startActivity(this, intent, null)
         }
