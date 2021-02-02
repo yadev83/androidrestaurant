@@ -1,14 +1,13 @@
 package fr.isen.attia.androidrestaurant.food
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintSet
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import com.synnapps.carouselview.ImageListener
-import fr.isen.attia.androidrestaurant.BaseActivity
+import fr.isen.attia.androidrestaurant.parents.BaseActivity
 import fr.isen.attia.androidrestaurant.R
 import fr.isen.attia.androidrestaurant.basket.Basket
 import fr.isen.attia.androidrestaurant.basket.BasketItem

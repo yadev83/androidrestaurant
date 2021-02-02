@@ -12,6 +12,7 @@ import fr.isen.attia.androidrestaurant.databinding.ActivityCategoryBinding
 import fr.isen.attia.androidrestaurant.food.FoodDetailActivity
 import fr.isen.attia.androidrestaurant.food.FoodModel
 import fr.isen.attia.androidrestaurant.food.FoodsAdapter
+import fr.isen.attia.androidrestaurant.parents.BaseActivity
 
 /**
  * @brief This class defines a category list.

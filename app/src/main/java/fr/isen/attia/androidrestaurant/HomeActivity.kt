@@ -2,47 +2,54 @@ package fr.isen.attia.androidrestaurant
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import fr.isen.attia.androidrestaurant.databinding.ActivityHomeBinding
+import fr.isen.attia.androidrestaurant.parents.BaseActivity
 
+/**
+ * @brief The home activity is the default activity that launches when we start the app.
+ * It has a title, a banner and 3 buttons to access the different categories of the restaurant.
+ */
 class HomeActivity : BaseActivity() {
+    /** Binding... We kind of know him now **/
     private lateinit var binding: ActivityHomeBinding
-    private val TAG = "MainMenu"
 
     companion object{
         const val CATEGORY_NAME = "CATEGORY"
     }
 
+    /**
+     * @brief This method is called when the activity is created
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i(TAG, "HomeActivity has been created")
+
+        //Sets up the binding and content view
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        populateView()
+    }
+
+    /**
+     * @brief Populates the view with click listeners on menu buttons.
+     */
+    private fun populateView(){
         binding.menuBtnStarters.setOnClickListener{
-            //Toast used for debugging only
-            //Toast.makeText(this, "Starters button clicked !", Toast.LENGTH_SHORT).show()
             goToCategory(CategoryActivity.ItemType.STARTER)
         }
         binding.menuBtnMainCourses.setOnClickListener{
-            //Toast used for debugging only
-            //Toast.makeText(this, "Main Courses button clicked !", Toast.LENGTH_SHORT).show()
             goToCategory(CategoryActivity.ItemType.MAIN)
         }
         binding.menuBtnDesserts.setOnClickListener{
-            //Toast used for debugging only
-            //Toast.makeText(this, "Desserts button clicked !", Toast.LENGTH_SHORT).show()
             goToCategory(CategoryActivity.ItemType.DESSERT)
         }
     }
 
-    override fun onDestroy() {
-        Log.i(TAG, "HomeActivity has been destroyed")
-        super.onDestroy()
-    }
-
+    /**
+     * @brief A method that goes to the selected category
+     * @param type The type of item we want the list from
+     */
     private fun goToCategory(type: CategoryActivity.ItemType){
-        Log.i(TAG, "Opening new activity with $type identifier")
         val intent = Intent(this, CategoryActivity::class.java).apply{
             putExtra(CATEGORY_NAME, type)
         }

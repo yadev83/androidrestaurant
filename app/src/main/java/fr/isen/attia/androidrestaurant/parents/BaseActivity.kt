@@ -1,4 +1,4 @@
-package fr.isen.attia.androidrestaurant
+package fr.isen.attia.androidrestaurant.parents
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import fr.isen.attia.androidrestaurant.R
 import fr.isen.attia.androidrestaurant.basket.Basket
 import fr.isen.attia.androidrestaurant.basket.BasketActivity
 
