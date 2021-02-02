@@ -15,4 +15,5 @@
     <string name="total_label_start">(Prix total : </string>
     <string name="total_label_end"> €)</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="order">Commander</string>
 </resources>

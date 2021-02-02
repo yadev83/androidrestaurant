@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import fr.isen.attia.androidrestaurant.R
 import fr.isen.attia.androidrestaurant.databinding.ActivityBasketBinding
+import fr.isen.attia.androidrestaurant.parents.OrderBaseActivity
 
 /**
  * @brief This class is the Activity displayed when looking at our Basket in the app
@@ -15,7 +16,7 @@ import fr.isen.attia.androidrestaurant.databinding.ActivityBasketBinding
  * It also inherits from BasketItemInterface (cf Basket.kt) because it has the need for
  * BasketItem management.
  */
-class BasketActivity : AppCompatActivity(), BasketItemInterface {
+class BasketActivity : OrderBaseActivity(), BasketItemInterface {
     /**
      * @brief The binding used to access the different elements of the Activity
      */
