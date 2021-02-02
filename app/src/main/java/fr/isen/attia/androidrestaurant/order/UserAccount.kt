@@ -10,23 +10,29 @@ import fr.isen.attia.androidrestaurant.basket.Basket
 import org.json.JSONObject
 import java.io.Serializable
 
-class UserAccount(var email: String?, var password: String?, var firstname: String?, var lastname: String?): Serializable {
-    private var id: Int = -1
+class UserAccount() {
+    lateinit var email: String
+    lateinit var password: String
+    lateinit var firstName: String
+    lateinit var lastName: String
+
+    var id: Int = -1
 
     fun validate(): Boolean{
         //TODO data validation
         return true
     }
 
-    fun registerRequest(context: Context): Int{
+    fun registerRequest(context: Context): RequestResult{
         val queue = Volley.newRequestQueue(context)
         val jsonData = JSONObject()
         jsonData.put(ID_SHOP, idShop)
         jsonData.put(EMAIL, email)
         jsonData.put(PASSWORD, password)
-        jsonData.put(FIRSTNAME, firstname)
-        jsonData.put(LASTNAME, lastname)
+        jsonData.put(FIRSTNAME, firstName)
+        jsonData.put(LASTNAME, lastName)
 
+        var userResult = RequestResult(null)
         Log.d("JSON", jsonData.toString())
 
         var request = JsonObjectRequest(
@@ -34,7 +40,8 @@ class UserAccount(var email: String?, var password: String?, var firstname: Stri
             urlRegister,
             jsonData,
             { response ->
-                Log.d("REQUEST", response.toString())
+                userResult = GsonBuilder().create().fromJson(response.toString(), RequestResult::class.java)
+                save(context)
             },
             { error ->
               error.message?.let{
@@ -47,16 +54,17 @@ class UserAccount(var email: String?, var password: String?, var firstname: Stri
         )
         queue.add(request)
 
-        return 0
+        return userResult
     }
 
-    fun loginRequest(context: Context, email: String?, password: String?): Int{
+    fun loginRequest(context: Context): RequestResult{
         val queue = Volley.newRequestQueue(context)
         val jsonData = JSONObject()
         jsonData.put(ID_SHOP, idShop)
         jsonData.put(EMAIL, email)
         jsonData.put(PASSWORD, password)
 
+        var userResult = RequestResult(null)
         Log.d("JSON", jsonData.toString())
 
         var request = JsonObjectRequest(
@@ -64,7 +72,7 @@ class UserAccount(var email: String?, var password: String?, var firstname: Stri
             urlLogin,
             jsonData,
             { response ->
-                Log.d("REQUEST", response.toString())
+                userResult = GsonBuilder().create().fromJson(response.toString(), RequestResult::class.java)
                 save(context)
             },
             { error ->
@@ -78,7 +86,7 @@ class UserAccount(var email: String?, var password: String?, var firstname: Stri
         )
         queue.add(request)
 
-        return 0
+        return userResult
     }
 
     fun save(context: Context){
@@ -87,6 +95,10 @@ class UserAccount(var email: String?, var password: String?, var firstname: Stri
         editor.putInt(USER_ID, id)
         editor.apply()
     }
+
+    inner class SerializedUserAccount(val id: Int, val email: String): Serializable{}
+
+    inner class RequestResult(val data: SerializedUserAccount?){}
 
     companion object{
         const val ID_SHOP = "id_shop"

@@ -3,6 +3,7 @@ package fr.isen.attia.androidrestaurant.order
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import fr.isen.attia.androidrestaurant.R
 import fr.isen.attia.androidrestaurant.databinding.ActivityLoginBinding
 
@@ -21,8 +22,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun populateActivity(){
         binding.loginFormValidate.setOnClickListener{
-            user = UserAccount("", "", "", "")
-            user.loginRequest(this, binding.loginFormEmail.text.toString(), binding.loginFormPassword.text.toString())
+            user = UserAccount()
+            user.email = binding.loginFormEmail.text.toString()
+            user.password = binding.loginFormPassword.text.toString()
+            val serUser = user.loginRequest(this)
+            Log.d("LOGIN", serUser.data?.id.toString())
         }
     }
 }

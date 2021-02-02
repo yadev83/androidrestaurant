@@ -3,7 +3,6 @@ package fr.isen.attia.androidrestaurant.order
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import fr.isen.attia.androidrestaurant.R
 import fr.isen.attia.androidrestaurant.databinding.ActivityRegisterBinding
@@ -26,11 +25,12 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun populateActivity(){
         binding.regFormValidate.setOnClickListener{
-            user = UserAccount(binding.regFormEmail.text.toString(),
-                binding.regFormPassword.text.toString(),
-                binding.regFormFirstname.text.toString(),
-                binding.regFormLastname.text.toString())
-            user.registerRequest(this)
+            user = UserAccount()
+            user.email = binding.regFormEmail.text.toString()
+            user.password = binding.regFormPassword.text.toString()
+            user.firstName = binding.regFormFirstname.text.toString()
+            user.lastName = binding.regFormLastname.text.toString()
+            val serUser = user.registerRequest(this)
         }
 
         binding.loginButton.setOnClickListener{
