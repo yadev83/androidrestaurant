@@ -7,6 +7,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.GsonBuilder
 import fr.isen.attia.androidrestaurant.basket.Basket
+import fr.isen.attia.androidrestaurant.food.FoodModel
 import org.json.JSONObject
 import java.io.Serializable
 
@@ -16,6 +17,7 @@ class UserAccount() {
     lateinit var firstName: String
     lateinit var lastName: String
 
+    private var currentUser = RequestResult(null)
     var id: Int = -1
 
     fun validate(): Boolean{
@@ -23,7 +25,11 @@ class UserAccount() {
         return true
     }
 
-    fun registerRequest(context: Context): RequestResult{
+    fun get(): SerializedUserAccount? {
+        return currentUser.data
+    }
+
+    fun registerRequest(context: Context){
         val queue = Volley.newRequestQueue(context)
         val jsonData = JSONObject()
         jsonData.put(ID_SHOP, idShop)
@@ -32,68 +38,66 @@ class UserAccount() {
         jsonData.put(FIRSTNAME, firstName)
         jsonData.put(LASTNAME, lastName)
 
-        var userResult = RequestResult(null)
-        Log.d("JSON", jsonData.toString())
-
         var request = JsonObjectRequest(
             Request.Method.POST,
             urlRegister,
             jsonData,
             { response ->
-                userResult = GsonBuilder().create().fromJson(response.toString(), RequestResult::class.java)
-                save(context)
+                parseResult(context, response.toString())
             },
-            { error ->
-              error.message?.let{
-                  Log.d("REQUEST", it)
-              }  ?: run {
-                  Log.d("REQUEST", error.toString())
-                  Log.d("REQUEST", String(error.networkResponse.data))
-              }
+            {
+                Log.d("USER_ACCOUNT", "Error while doing the request to login/register")
             }
         )
         queue.add(request)
-
-        return userResult
     }
 
-    fun loginRequest(context: Context): RequestResult{
-        val queue = Volley.newRequestQueue(context)
-        val jsonData = JSONObject()
-        jsonData.put(ID_SHOP, idShop)
-        jsonData.put(EMAIL, email)
-        jsonData.put(PASSWORD, password)
+    fun loginRequest(context: Context){
+        load(context)?.let {
+            parseResult(context, it)
+        } ?: run {
+            val queue = Volley.newRequestQueue(context)
+            val jsonData = JSONObject()
+            jsonData.put(ID_SHOP, idShop)
+            jsonData.put(EMAIL, email)
+            jsonData.put(PASSWORD, password)
 
-        var userResult = RequestResult(null)
-        Log.d("JSON", jsonData.toString())
+            Log.d("JSON", jsonData.toString())
 
-        var request = JsonObjectRequest(
-            Request.Method.POST,
-            urlLogin,
-            jsonData,
-            { response ->
-                userResult = GsonBuilder().create().fromJson(response.toString(), RequestResult::class.java)
-                save(context)
-            },
-            { error ->
-                error.message?.let {
-                    Log.d("request", it)
-                } ?: run {
-                    Log.d("request", error.toString())
-                    Log.d("request", String(error.networkResponse.data))
+            var request = JsonObjectRequest(
+                Request.Method.POST,
+                urlLogin,
+                jsonData,
+                { response ->
+                    parseResult(context, response.toString())
+                },
+                {
+                    Log.d("USER_ACCOUNT", "Error while doing the request to login/register")
                 }
-            }
-        )
-        queue.add(request)
-
-        return userResult
+            )
+            queue.add(request)
+        }
     }
 
-    fun save(context: Context){
+    fun save(context: Context, request: String){
         val sharedPreferences = context.getSharedPreferences(Basket.USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putInt(USER_ID, id)
+        editor.putString(USER_ID, request)
         editor.apply()
+    }
+
+    /**
+     * @brief Returns the last response string that has been put in the cache.
+     * Returns null if cache is empty.
+     */
+    private fun load(context: Context): String? {
+        val sharedPreferences = context.getSharedPreferences(Basket.USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        return sharedPreferences.getString(USER_ID, null)
+    }
+
+    private fun parseResult(context: Context, response: String){
+        currentUser = GsonBuilder().create().fromJson(response.toString(), RequestResult::class.java)
+        save(context, response)
     }
 
     inner class SerializedUserAccount(val id: Int, val email: String): Serializable{}
@@ -106,7 +110,7 @@ class UserAccount() {
         const val PASSWORD = "password"
         const val FIRSTNAME = "firstname"
         const val LASTNAME = "lastname"
-        const val USER_ID = "USER_ID"
+        const val USER_ID = "USER"
 
         const val urlRegister = "http://test.api.catering.bluecodegames.com/user/register"
         const val urlLogin = "http://test.api.catering.bluecodegames.com/user/login"

@@ -25,8 +25,9 @@ class LoginActivity : AppCompatActivity() {
             user = UserAccount()
             user.email = binding.loginFormEmail.text.toString()
             user.password = binding.loginFormPassword.text.toString()
-            val serUser = user.loginRequest(this)
-            Log.d("LOGIN", serUser.data?.id.toString())
+            user.loginRequest(this)
+            var serUser = user.get()
+            Log.d("LOGIN", serUser?.id.toString())
         }
     }
 }
