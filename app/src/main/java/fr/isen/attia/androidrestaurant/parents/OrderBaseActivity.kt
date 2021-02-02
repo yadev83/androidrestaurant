@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import fr.isen.attia.androidrestaurant.R
 import fr.isen.attia.androidrestaurant.order.OrderActivity
+import fr.isen.attia.androidrestaurant.order.RegisterActivity
 
 /**
  * @brief This is the base activity that holds the "Order" button in the top menu bar
@@ -23,7 +24,9 @@ open class OrderBaseActivity: AppCompatActivity() {
         val menuView = menu?.findItem(R.id.orderMenuBtn)?.actionView
 
         menuView?.findViewById<Button>(R.id.orderBtn)?.setOnClickListener{
-            ContextCompat.startActivity(this, Intent(this, OrderActivity::class.java), null)
+            //Check where we should go from here (depending on login status)
+            //Login/Register/Order
+            ContextCompat.startActivity(this, Intent(this, RegisterActivity::class.java), null)
         }
         return true
     }

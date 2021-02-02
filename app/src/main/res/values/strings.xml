@@ -16,4 +16,6 @@
     <string name="total_label_end"> €)</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="order">Commander</string>
+    <string name="register">Inscription</string>
+    <string name="login">Connexion</string>
 </resources>
