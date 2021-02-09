@@ -1,5 +1,6 @@
 package fr.isen.attia.androidrestaurant.food
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -134,12 +135,14 @@ class FoodDetailActivity : BaseActivity() {
     private fun populateTextViews(){
         binding.dishName.text = food.name
 
+        var ingList = ""
         food.ingredients?.forEach { ingredient ->
-            var textView = TextView(this)
-            textView.text = "- $ingredient"
-            textView.textSize = 24.0F
-            binding.ingredientsLayout.addView(textView)
+            ingList+= "- $ingredient\n"
         }
+        var textView = TextView(this)
+        textView.text = ingList
+        textView.textSize = 20.0F
+        binding.ingredientsLayout.addView(textView)
     }
 
     /**
