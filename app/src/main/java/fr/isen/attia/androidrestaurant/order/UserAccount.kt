@@ -12,10 +12,10 @@ import org.json.JSONObject
 import java.io.Serializable
 
 class UserAccount() {
-    lateinit var email: String
-    lateinit var password: String
-    lateinit var firstName: String
-    lateinit var lastName: String
+    var email: String = ""
+    var password: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
 
     private var currentUser = RequestResult(null)
     var id: Int = -1
@@ -55,6 +55,7 @@ class UserAccount() {
     fun loginRequest(context: Context){
         load(context)?.let {
             parseResult(context, it)
+            Log.d("USER_ACCOUNT", "Logged as " + get()?.email.toString())
         } ?: run {
             val queue = Volley.newRequestQueue(context)
             val jsonData = JSONObject()
@@ -70,6 +71,7 @@ class UserAccount() {
                 jsonData,
                 { response ->
                     parseResult(context, response.toString())
+                    Log.d("USER_ACCOUNT", "Logged as " + get()?.email.toString())
                 },
                 {
                     Log.d("USER_ACCOUNT", "Error while doing the request to login/register")
