@@ -18,4 +18,5 @@
     <string name="order">Commander</string>
     <string name="register">Inscription</string>
     <string name="login">Connexion</string>
+    <string name="logout">Déconnexion</string>
 </resources>

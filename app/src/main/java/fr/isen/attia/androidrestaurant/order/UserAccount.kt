@@ -7,6 +7,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.GsonBuilder
 import fr.isen.attia.androidrestaurant.basket.Basket
+import fr.isen.attia.androidrestaurant.basket.Basket.Companion.USER_PREFERENCES_NAME
 import fr.isen.attia.androidrestaurant.food.FoodModel
 import org.json.JSONObject
 import java.io.Serializable
@@ -75,6 +76,7 @@ class UserAccount() {
                 },
                 {
                     Log.d("USER_ACCOUNT", "Error while doing the request to login/register")
+                    logout(context)
                 }
             )
             queue.add(request)
@@ -100,6 +102,13 @@ class UserAccount() {
     private fun parseResult(context: Context, response: String){
         currentUser = GsonBuilder().create().fromJson(response.toString(), RequestResult::class.java)
         save(context, response)
+    }
+
+    fun logout(context: Context){
+        val sharedPreferences = context.getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove(USER_ID)
+        editor.apply()
     }
 
     inner class SerializedUserAccount(val id: Int, val email: String): Serializable{}
