@@ -22,13 +22,22 @@ Once downloaded, simply drag the file to your own device and install the apk as 
 
 * [Android Studio](https://developer.android.com/studio) - An IDE made for Android app development based on IntelliJ.  
 
+## Features  
+
+This app contains many features to see and try. Most of them were added as an experiment to discover Android development.  
+* Main Activity containing a banner and 3 main menu items to choose from (Starters/Main/Desserts)  
+* For each main menu item, there is a list with all the dishes that correspond to the category.  
+* For each dish, a detailed activity is shown containing a list of ingredients and the ability to add them to the basket.  
+* You can then access your basket and click the "Commander" button to order your food (From this point, it should show you a login/register activity and make an order request to the api but I messed up the login system and couldn't figure a fix out so you can not get to the end of the order system... :( ).  
+
 ## Versions
-**Last Stable Version :** [1.3.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.3.0-d)  
-**Last Version :** [1.3.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.3.0-d)  
+**Last Stable Version :** [1.4.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.4.0-d)  
+**Last Version :** [1.4.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.4.0-d)  
 
 Full Versions list : [Click here to see](https://github.com/yadev83/androidrestaurant/tags)  
 
 ### Version Log  
+**[1.4.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.4.0-d)**: Adds order checkout. This version initially contained login/logout/register mechanisms but it has been disabled for stability purposes.  
 **[1.3.0-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.3.0-d)**: Adds carousel (one using a lib and custom one using view pager) and quantity texts and arithmetic   
 **[1.2.2-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.2-d)**: Fixes all banner constraints errors that remained in 1.2.1d  
 **[1.2.1-d](https://github.com/yadev83/androidrestaurant/releases/tag/v1.2.1-d)**: Fixes graphical issue on category activity  
