@@ -19,11 +19,11 @@ class OrderActivity : AppCompatActivity(), BasketItemInterface {
         binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        user.loginRequest(this)
+        /*user.loginRequest(this)
         if(user.get() == null){
             finish()
             startActivity(Intent(this, RegisterActivity::class.java), null)
-        }
+        }*/
 
         reloadData()
         binding.logoutBtn.setOnClickListener{
@@ -34,7 +34,7 @@ class OrderActivity : AppCompatActivity(), BasketItemInterface {
 
         val name = user.get()?.email
 
-        title = getString(R.string.order) + "(" + name + ")"
+        title = getString(R.string.order)
     }
 
     private fun reloadData(){
