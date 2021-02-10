@@ -3,7 +3,6 @@ package fr.isen.attia.androidrestaurant.order
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import fr.isen.attia.androidrestaurant.R
@@ -19,7 +18,7 @@ class OrderActivity : AppCompatActivity(), BasketItemInterface {
         binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        user.loginRequest(this)
+        //user.login(this)
         if(user.get() == null){
             finish()
             startActivity(Intent(this, RegisterActivity::class.java), null)

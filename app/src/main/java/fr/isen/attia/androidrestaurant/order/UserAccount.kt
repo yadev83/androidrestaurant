@@ -53,37 +53,45 @@ class UserAccount() {
         queue.add(request)
     }
 
-    fun loginRequest(context: Context){
+    fun login(context: Context){
         load(context)?.let {
             parseResult(context, it)
             Log.d("USER_ACCOUNT", "Logged as " + get()?.email.toString())
+            if(get()?.email.toString() == "null")
+                loginRequest(context)
         } ?: run {
-            val queue = Volley.newRequestQueue(context)
-            val jsonData = JSONObject()
-            jsonData.put(ID_SHOP, idShop)
-            jsonData.put(EMAIL, email)
-            jsonData.put(PASSWORD, password)
+            loginRequest(context)
+        }
+    }
 
-            Log.d("JSON", jsonData.toString())
+    private fun loginRequest(context: Context){
+        val queue = Volley.newRequestQueue(context)
+        val jsonData = JSONObject()
+        jsonData.put(ID_SHOP, idShop)
+        jsonData.put(EMAIL, email)
+        jsonData.put(PASSWORD, password)
 
-            var request = JsonObjectRequest(
+        Log.d("JSON_REQUEST", jsonData.toString())
+
+        var request = JsonObjectRequest(
                 Request.Method.POST,
                 urlLogin,
                 jsonData,
                 { response ->
                     parseResult(context, response.toString())
+                    save(context, response.toString())
                     Log.d("USER_ACCOUNT", "Logged as " + get()?.email.toString())
                 },
                 {
                     Log.d("USER_ACCOUNT", "Error while doing the request to login/register")
                     logout(context)
                 }
-            )
-            queue.add(request)
-        }
+        )
+        queue.add(request)
     }
 
     fun save(context: Context, request: String){
+        Log.d("USER", "Saving user")
         val sharedPreferences = context.getSharedPreferences(Basket.USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString(USER_ID, request)
@@ -101,7 +109,6 @@ class UserAccount() {
 
     private fun parseResult(context: Context, response: String){
         currentUser = GsonBuilder().create().fromJson(response.toString(), RequestResult::class.java)
-        save(context, response)
     }
 
     fun logout(context: Context){

@@ -25,13 +25,10 @@ class LoginActivity : AppCompatActivity() {
             user = UserAccount()
             user.email = binding.loginFormEmail.text.toString()
             user.password = binding.loginFormPassword.text.toString()
-            user.loginRequest(this)
-            val serUser = user.get()
-            Log.d("LOGIN", serUser?.id.toString())
-            serUser?.let{
-                finish()
-                startActivity(Intent(this, OrderActivity::class.java), null)
-            }
+            user.login(this)
+
+            finish()
+            startActivity(Intent(this, OrderActivity::class.java), null)
         }
     }
 }
