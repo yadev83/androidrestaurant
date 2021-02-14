@@ -57,10 +57,9 @@ class UserAccount() {
     }
 
     fun loginRequest(context: Context){
-        load(context)?.let {
-            parseResult(context, it)
-            Log.d("USER_ACCOUNT", "Logged as " + get()?.email.toString())
-        } ?: run {
+        if(email.isNullOrBlank()){
+            load(context)?.let { parseResult(context, it) }
+        }else{
             val queue = Volley.newRequestQueue(context)
             val jsonData = JSONObject()
             jsonData.put(ID_SHOP, idShop)
@@ -70,17 +69,16 @@ class UserAccount() {
             Log.d("JSON", jsonData.toString())
 
             var request = JsonObjectRequest(
-                Request.Method.POST,
-                urlLogin,
-                jsonData,
-                { response ->
-                    parseResult(context, response.toString())
-                    Log.d("USER_ACCOUNT", "Logged as " + get()?.email.toString())
-                },
-                {
-                    Log.d("USER_ACCOUNT", "Error while doing the request to login/register")
-                    logout(context)
-                }
+                    Request.Method.POST,
+                    urlLogin,
+                    jsonData,
+                    { response ->
+                        parseResult(context, response.toString())
+                        Log.d("USER_ACCOUNT", "Logged as " + get()?.email.toString())
+                    },
+                    {
+                        Log.d("USER_ACCOUNT", "Error while doing the request to login/register")
+                    }
             )
             queue.add(request)
         }
@@ -112,6 +110,7 @@ class UserAccount() {
         val editor = sharedPreferences.edit()
         editor.remove(USER_ID)
         editor.apply()
+        currentUser.value = null
     }
 
     inner class SerializedUserAccount(val id: Int, val email: String): Serializable{}

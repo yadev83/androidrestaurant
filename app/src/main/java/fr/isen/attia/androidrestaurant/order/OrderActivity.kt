@@ -24,7 +24,7 @@ class OrderActivity : AppCompatActivity(), BasketItemInterface {
         binding.logoutBtn.setOnClickListener{
             user.logout(this)
             finish()
-            startActivity(intent)
+            startActivity(Intent(this, LoginActivity::class.java), null)
         }
 
         val name = UserAccount.get()?.email
