@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import fr.isen.attia.androidrestaurant.R
@@ -19,12 +20,6 @@ class OrderActivity : AppCompatActivity(), BasketItemInterface {
         binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /*user.loginRequest(this)
-        if(user.get() == null){
-            finish()
-            startActivity(Intent(this, RegisterActivity::class.java), null)
-        }*/
-
         reloadData()
         binding.logoutBtn.setOnClickListener{
             user.logout(this)
@@ -32,9 +27,9 @@ class OrderActivity : AppCompatActivity(), BasketItemInterface {
             startActivity(intent)
         }
 
-        val name = user.get()?.email
+        val name = UserAccount.get()?.email
 
-        title = getString(R.string.order)
+        title = getString(R.string.order) + " (" + name + ")"
     }
 
     private fun reloadData(){

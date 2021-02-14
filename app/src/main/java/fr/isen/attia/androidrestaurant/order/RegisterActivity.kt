@@ -20,6 +20,9 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         title = getString(R.string.register)
+
+        //Try to log in from cache
+
         populateActivity()
     }
 
@@ -30,10 +33,10 @@ class RegisterActivity : AppCompatActivity() {
             user.password = binding.regFormPassword.text.toString()
             user.firstName = binding.regFormFirstname.text.toString()
             user.lastName = binding.regFormLastname.text.toString()
-            val serUser = user.registerRequest(this)
         }
 
         binding.loginButton.setOnClickListener{
+            finish()
             startActivity(Intent(this, LoginActivity::class.java), null)
         }
     }

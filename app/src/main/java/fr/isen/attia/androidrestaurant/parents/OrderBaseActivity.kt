@@ -28,7 +28,7 @@ open class OrderBaseActivity: AppCompatActivity() {
         menuView?.findViewById<Button>(R.id.orderBtn)?.setOnClickListener{
             //Check where we should go from here (depending on login status)
             //Login/Register/Order
-            ContextCompat.startActivity(this, Intent(this, OrderActivity::class.java), null)
+            ContextCompat.startActivity(this, Intent(this, RegisterActivity::class.java), null)
         }
         return true
     }

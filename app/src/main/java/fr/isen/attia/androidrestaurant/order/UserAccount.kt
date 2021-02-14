@@ -2,6 +2,7 @@ package fr.isen.attia.androidrestaurant.order
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -18,17 +19,19 @@ class UserAccount() {
     var firstName: String = ""
     var lastName: String = ""
 
-    private var currentUser = RequestResult(null)
     var id: Int = -1
 
     fun validate(): Boolean{
-        //TODO data validation
-        return true
+        var valid = true
+
+        if(email.length <= 12)
+            valid = false
+        if(password.length <= 6)
+            valid = false
+
+        return valid
     }
 
-    fun get(): SerializedUserAccount? {
-        return currentUser.data
-    }
 
     fun registerRequest(context: Context){
         val queue = Volley.newRequestQueue(context)
@@ -84,7 +87,7 @@ class UserAccount() {
     }
 
     fun save(context: Context, request: String){
-        val sharedPreferences = context.getSharedPreferences(Basket.USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val sharedPreferences = context.getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString(USER_ID, request)
         editor.apply()
@@ -95,12 +98,12 @@ class UserAccount() {
      * Returns null if cache is empty.
      */
     private fun load(context: Context): String? {
-        val sharedPreferences = context.getSharedPreferences(Basket.USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val sharedPreferences = context.getSharedPreferences(USER_PREFERENCES_NAME, Context.MODE_PRIVATE)
         return sharedPreferences.getString(USER_ID, null)
     }
 
     private fun parseResult(context: Context, response: String){
-        currentUser = GsonBuilder().create().fromJson(response.toString(), RequestResult::class.java)
+        currentUser.value = GsonBuilder().create().fromJson(response, RequestResult::class.java)
         save(context, response)
     }
 
@@ -126,5 +129,11 @@ class UserAccount() {
         const val urlRegister = "http://test.api.catering.bluecodegames.com/user/register"
         const val urlLogin = "http://test.api.catering.bluecodegames.com/user/login"
         const val idShop = 1
+
+        var currentUser: MutableLiveData<RequestResult> = MutableLiveData()
+
+        fun get(): SerializedUserAccount? {
+            return currentUser.value?.data
+        }
     }
 }
